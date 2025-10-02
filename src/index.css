@@ -1,2 +1,7 @@
 @import 'tailwindcss';
-@plugin "daisyui"
+@plugin "daisyui";
+
+
+.grid-layout{
+    grid-template-columns: repeat(minmax(350px, 1fr));
+}

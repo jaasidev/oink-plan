@@ -12,9 +12,9 @@ export function Header() {
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='1'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='1'
+          strokeLinecap='round'
+          strokeLinejoin='round'
         >
           <path d='M4 6l16 0' />
           <path d='M4 12l16 0' />
