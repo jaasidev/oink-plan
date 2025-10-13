@@ -3,12 +3,11 @@ import { useTimeStore } from '../../hooks/useTimeStore'
 import { useRef } from 'react'
 export function FormSide() {
   const minRef = useRef(null)
-  const initialice = useTimeStore(state => state.initialice)
+  const initialice = useTimeStore((state) => state.initialice)
 
   const handlSubmit = (event) => {
     event.preventDefault()
     initialice(minRef.current.value)
-
   }
   return (
     <>
@@ -19,8 +18,9 @@ export function FormSide() {
             placeholder='Elige el rango de tiempo'
             min={1}
             max={5}
-            className='input input-secondary'
+            className='input input-secondary validator'
             ref={minRef}
+            title='Debe introducir un dígito entre 0-5'
             required
           />
           <select
@@ -28,7 +28,9 @@ export function FormSide() {
             className='select select-secondary'
             required
           >
-            <option value="Elige monedas" disabled>--Elige tu cambio de moneda--</option>
+            <option value='Elige monedas' disabled>
+              --Elige tu cambio de moneda--
+            </option>
             <option>USD/EURO</option>
             <option>EURO/USD</option>
             <option>USD/GBP</option>
@@ -36,9 +38,7 @@ export function FormSide() {
             <option>GBP/USD</option>
             <option value=''>GBP/EURO</option>
           </select>
-          <button className="btn btn-secondary">
-            Generar
-          </button>
+          <button className='btn btn-secondary'>Generar</button>
         </form>
       </li>
       <BrokerList />
