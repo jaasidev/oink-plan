@@ -5,9 +5,9 @@ export function ButtonTime({ children, index }) {
   const [bg, setBg] = useState('')
   const handleClick = () => {
     if (time[index].color == 'none') {
-      time[index].color = 'success'
+      time[index].color = 'hight'
       setBg('btn-success')
-    } else if (time[index].color == 'success') {
+    } else if (time[index].color == 'hight') {
       time[index].color = 'stage'
       setBg('btn-warning')
     } else if (time[index].color == 'stage') {
