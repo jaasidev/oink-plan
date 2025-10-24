@@ -1,28 +1,32 @@
 import { ButtonTime } from '../buttons/ButtonTime'
 import { useDrop } from '../../hooks/useDrop'
+import { useTimeStore } from '../../hooks/useTimeStore'
 export function TimeSection() {
   const time = useDrop()
+  const velas = useTimeStore((state) => state.velas)
   return (
     <div className='px-6'>
       <h2 className='text-center font-bold text-2xl mb-3 mt-12'>
         Selector de tiempo
       </h2>
-      <div className='flex flex-col lg:flex-row rounded-2xl shadow shadow-pink-500 lg:items-center'>
-        <div className=' flex overflow-y-auto gap-1 px-3 py-4 lg:w-3/4 order-2 lg:order-1'>
+      <div className='flex flex-col lg:flex-row rounded-2xl lg:items-center bg-base-200'>
+        <div className=' flex overflow-y-auto gap-1 px-3 py-4 lg:w-3/4 order-2 lg:order-1 '>
           {time.map((value, index) => {
             return (
-              <ButtonTime key={index} index={index}>
+              <ButtonTime key={index} index={index} disabled={value.disable}>
                 {value.time}
               </ButtonTime>
             )
           })}
         </div>
-        <div className='order-1 w-1/4 lg:order-2 lg:pl-6 bg-base-200 lg:rounded-br-2xl lg:rounded-tr-2xl py-4'>
-          <ul>
-            <li className='py-1'>Arriba: {0}</li>
-            <li className='py-1'>Mantienen:{0}</li>
-            <li className='py-1'>Bajo:{0}</li>
-            <li className='py-1'>Total de Velas Marcadas: {0}</li>
+        <div className='order-1 lg:w-1/4 lg:order-2 lg:pl-6 bg-base-300 lg:rounded-br-2xl lg:rounded-tl-none py-4 rounded-t-2xl'>
+          <ul className='flex items-center gap-3 px-2 lg:block flex-wrap'>
+            <li className='py-1 leyend'>Arriba: {velas.hight}</li>
+            <li className='py-1 leyend'>Mantienen:{velas.stage}</li>
+            <li className='py-1 leyend'>Bajo:{velas.low}</li>
+            <li className='py-1 font-bold'>
+              Total de Velas Marcadas: {velas.total}
+            </li>
           </ul>
         </div>
       </div>

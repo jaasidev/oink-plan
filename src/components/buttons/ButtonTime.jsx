@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useTimeStore } from '../../hooks/useTimeStore'
-export function ButtonTime({ children, index }) {
+export function ButtonTime({ children, index, disabled }) {
   const time = useTimeStore((state) => state.time)
+  const setVelas = useTimeStore((state) => state.setVelas)
   const [bg, setBg] = useState('')
   const handleClick = () => {
     if (time[index].color == 'none') {
@@ -17,9 +18,13 @@ export function ButtonTime({ children, index }) {
       time[index].color = 'none'
       setBg('')
     }
+    setVelas()
   }
   return (
-    <button className={`btn  w-15 ${bg}`} onClick={handleClick}>
+    <button
+      className={`btn  w-15 ${bg} ${disabled}`}
+      onClick={handleClick}
+      disabled={disabled}>
       {children}
     </button>
   )

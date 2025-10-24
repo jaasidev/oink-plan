@@ -3,5 +3,25 @@
 
 
 .grid-layout{
-    grid-template-columns: repeat(minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.leyend::before{
+    display: inline-block;
+    margin-right: 5px;
+    content: '';
+    width: 10px;
+    height: 10px;
+}
+
+.leyend:first-child:before{
+    @apply bg-success
+}
+
+.leyend:nth-child(2)::before{
+    @apply bg-warning
+}
+
+.leyend:nth-child(3)::before{
+    @apply bg-error
 }

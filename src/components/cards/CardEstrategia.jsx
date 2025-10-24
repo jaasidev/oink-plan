@@ -1,5 +1,5 @@
-export function CardEstrategia({ name, description, velaUno, velaDos, velaTres }) {
-    const efectividad = (velaUno + velaDos + velaTres) / 3
+export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, efectividad }) {
+    
     let color
 
     if (efectividad > 75) {
@@ -10,7 +10,7 @@ export function CardEstrategia({ name, description, velaUno, velaDos, velaTres }
         color = 'error'
     }
     return (
-        <div className="card w-96 bg-base-100 card-lg shadow-sm shadow-pink-500">
+        <div className="card w-96 bg-base-100 card-lg border-secondary border">
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <p>{description}</p>

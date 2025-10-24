@@ -4,12 +4,10 @@ import { useRef } from 'react'
 export function FormSide() {
   const minRef = useRef(null)
   const initialice = useTimeStore((state) => state.initialice)
-  const restar = useTimeStore((state) => state.resta)
 
   const handlSubmit = (event) => {
     event.preventDefault()
     initialice(minRef.current.value)
-    restar(new Date().getMilliseconds())
   }
   return (
     <>
