@@ -1,5 +1,5 @@
 export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, efectividad }) {
-    
+
     let color
 
     if (efectividad > 75) {
@@ -16,11 +16,6 @@ export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, 
                 <p>{description}</p>
 
                 <div className="mt-5 w-full">
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Probabilidad General:</legend>
-                        <progress className={`progress w-full progress-${color}`} value={efectividad} max="100"></progress>
-                        <p className={`justify-end label text-${color}`}>{efectividad}%</p>
-                    </fieldset>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Probabilidad Apertura:</legend>
                         <progress className="progress progress-primary w-full" value={velaUno} max="100"></progress>

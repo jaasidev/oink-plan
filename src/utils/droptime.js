@@ -1,23 +1,25 @@
 export function time(multiplicador) {
   const date = new Date()
   const array = []
-  for (let i = 0; i < 60 / multiplicador; i++) {
-    if (date.getMinutes() >= i * multiplicador) {
-      array.unshift({
-        time: `${String(date.getHours()).padStart(2, '0')}:${String(
-          date.getMinutes() - i * multiplicador
-        ).padStart(2, '0')}`,
-        color: 'none',
-        disable: false,
-      })
-    } else {
-      array.unshift({
-        time: `${String(date.getHours()).padStart(2, '0') - 1}:${String(
-          60 + date.getMinutes() - i * multiplicador
-        ).padStart(2, '0')}`,
-        color: 'none',
-        disable: false,
-      })
+  for (let j = 0; j < 6; j++) {
+    for (let i = 0; i < 60 / multiplicador; i++) {
+      if (date.getMinutes() >= i * multiplicador) {
+        array.unshift({
+          hours: String(date.getHours()).padStart(2, '0') - j,
+          minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
+          color: 'none',
+          disable: false,
+        })
+      } else {
+        array.unshift({
+          hours: String(date.getHours()).padStart(2, '0') - j - 1,
+          minutes: String(
+            60 + date.getMinutes() - i * multiplicador
+          ).padStart(2, '0'),
+          color: 'none',
+          disable: false,
+        })
+      }
     }
   }
   array[array.length - 1].disable = 'disabled'
@@ -34,9 +36,10 @@ export function addDate(array) {
     const date = new Date()
     newArray.shift()
     newArray.push({
-      time: `${String(date.getHours()).padStart(2, '0')}:${String(
+      hours: String(date.getHours()).padStart(2, '0'),
+      minutes: String(
         date.getMinutes()
-      ).padStart(2, '0')}`,
+      ).padStart(2, '0'),
       color: 'none',
       disable: 'disabled',
     })

@@ -17,7 +17,7 @@ export function FormSide() {
             type='number'
             placeholder='Elige el rango de tiempo'
             min={1}
-            max={5}
+            max={15}
             className='input input-secondary validator'
             ref={minRef}
             title='Debe introducir un dígito entre 0-5'

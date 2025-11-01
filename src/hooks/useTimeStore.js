@@ -27,4 +27,7 @@ export const useTimeStore = create((set) => ({
       },
     }))
   },
+  updatEst: () => {
+    set(() => ({ estrategias: estrategias}))
+  }
 }))

@@ -1,4 +1,4 @@
-import { BrokerList } from '../BrokerList/BrokerList'
+
 import { FormSide } from '../FormSide/FormSIde'
 
 export function SideBar() {
@@ -26,7 +26,7 @@ export function SideBar() {
           </span>
         </a>
       </li>
-      <FormSide/>
+      <FormSide />
     </ul>
   )
 }
