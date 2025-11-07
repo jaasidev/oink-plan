@@ -34,10 +34,9 @@ export function time(multiplicador) {
 
 export function addDate(array) {
   if (array.length > 0) {
-    array[array.length - 1].disable = false
     const newArray = [...array]
+     newArray[array.length - 1].disable = false
     const date = new Date()
-    newArray.shift()
     newArray.push({
       hours: String(date.getHours()).padStart(2, '0'),
       minutes: String(
@@ -47,6 +46,7 @@ export function addDate(array) {
       disable: 'disabled',
       bloque: date.getMinutes() % 5 == 0 ? true : false
     })
+    newArray.shift()
 
     return newArray
   }

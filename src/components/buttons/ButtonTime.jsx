@@ -1,28 +1,24 @@
-import { useState } from 'react'
+
 import { useTimeStore } from '../../hooks/useTimeStore'
-export function ButtonTime({ index, disabled, hours, minutes, bloque }) {
+export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
   const time = useTimeStore((state) => state.time)
   const updatEst = useTimeStore(state => state.updatEst)
   const setVelas = useTimeStore((state) => state.setVelas)
-  const [bg, setBg] = useState('')
   const handleClick = () => {
     if (time[index].color == 'none') {
       time[index].color = 'hight'
-      setBg('btn-success')
     } else if (time[index].color == 'hight') {
       time[index].color = 'stage'
-      setBg('btn-warning')
     } else if (time[index].color == 'stage') {
       time[index].color = 'low'
-      setBg('btn-error')
     } else {
       time[index].color = 'none'
-      setBg('')
     }
     setVelas()
     updatEst()
   }
   const borde = bloque && disabled != 'disabled' ? 'border border-pink-500' : ''
+  const bg = color == 'hight' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''
   return (
     <button
       className={`btn  w-15 ${bg} ${borde}`}

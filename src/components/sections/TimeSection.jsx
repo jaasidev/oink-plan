@@ -13,7 +13,7 @@ export function TimeSection() {
         <div className=' flex overflow-y-auto gap-1 px-3 py-4 lg:w-3/4 order-2 lg:order-1 '>
           {time.map((value, index) => {
             return (
-              <ButtonTime key={index} index={index} disabled={value.disable} hours={value.hours} minutes={value.minutes} bloque={value.bloque} />
+              <ButtonTime key={index} index={index} disabled={value.disable} hours={value.hours} minutes={value.minutes} bloque={value.bloque} color={value.color} />
             )
           })}
         </div>
