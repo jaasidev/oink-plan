@@ -46,7 +46,9 @@ export function estrategia(time) {
 
           const instancia = time.findIndex((value) => value.bloque == true)
           let index = instancia
-          const bloque = time.findLastIndex((value) => value.bloque == true) == length ? time.findLastIndex((value) => value.bloque == true) - 5 : time.findLastIndex((value) => value.bloque == true)
+          const ultimo = time.findLastIndex((value) => value.bloque == true)
+          const bloque = ultimo + 3 < length - 1 ? ultimo : ultimo - 5
+          console.log(time[bloque].minutes)
           while (index < bloque) {
             if (time[index + 2].color != 'none') {
               if (time[index + 2].color == time[index + 3].color) {
@@ -60,40 +62,38 @@ export function estrategia(time) {
             index += 5
           }
 
-          if (bloque + 3 > length) {
+          if (bloque + 3 > length - 1) {
             uno = 0
             dos = 0
             tres = 0
           } else if (time[bloque + 2].color != 'none') {
-            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
             uno = 100
-            if (time[bloque + 2].color == time[bloque + 3]?.color) {
+            if (time[bloque + 2].color == time[bloque + 3].color) {
+              confiabilidad += 5
               uno = 0
-              dos = 0
-              tres = 0
-
-            } else {
+            } else if (time[bloque + 3].color !== 'none') {
               uno = 0
               dos = 100
-              confiabilidad -= 5
-              if (time[bloque + 2].color == time[bloque + 4]?.color) {
-                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-                uno = 0
+              if (time[bloque + 2].color == time[bloque + 4].color) {
+                confiabilidad += 3
                 dos = 0
-                tres = 0
-
-              } else {
+              } else if (time[bloque + 4].color != 'none') {
                 dos = 0
                 tres = 100
-                if (time[bloque + 2].color == time[bloque + 5]?.color) {
-                  confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-                  uno = 0
-                  dos = 0
+                if (time[bloque + 2].color == time[bloque + 5].color) {
+                  confiabilidad += 1
                   tres = 0
-
+                }
+                else if (time[bloque + 5].color != 'none'){
+                  tres = 0
                 }
               }
             }
+
+          } else {
+            uno = 0
+            dos = 0
+            tres = 0
           }
         }
         return {
