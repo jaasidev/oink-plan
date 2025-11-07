@@ -13,7 +13,7 @@ export function estrategia(time) {
           uno: 80,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -29,7 +29,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -58,7 +58,6 @@ export function estrategia(time) {
               }
             }
             index += 5
-            console.log(confiabilidad)
           }
 
           if (bloque + 3 > length) {
@@ -117,7 +116,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -133,7 +132,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -149,7 +148,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -165,7 +164,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -181,7 +180,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -197,7 +196,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -213,7 +212,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -229,7 +228,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -245,7 +244,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -261,7 +260,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -277,7 +276,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
@@ -293,7 +292,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          efectividad: 10
+          confiabilidad: 10
         }
       },
     },
