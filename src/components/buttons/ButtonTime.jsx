@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTimeStore } from '../../hooks/useTimeStore'
-export function ButtonTime({ index, disabled, hours, minutes }) {
+export function ButtonTime({ index, disabled, hours, minutes, bloque }) {
   const time = useTimeStore((state) => state.time)
   const updatEst = useTimeStore(state => state.updatEst)
   const setVelas = useTimeStore((state) => state.setVelas)
@@ -22,7 +22,7 @@ export function ButtonTime({ index, disabled, hours, minutes }) {
     setVelas()
     updatEst()
   }
-  const borde = minutes % 5 == 0&& disabled!='disabled' ? 'border border-pink-500' : ''
+  const borde = bloque && disabled != 'disabled' ? 'border border-pink-500' : ''
   return (
     <button
       className={`btn  w-15 ${bg} ${borde}`}

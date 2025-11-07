@@ -9,6 +9,7 @@ export function time(multiplicador) {
           minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
           color: 'none',
           disable: false,
+          bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
         })
       } else {
         array.unshift({
@@ -18,11 +19,13 @@ export function time(multiplicador) {
           ).padStart(2, '0'),
           color: 'none',
           disable: false,
+          bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
         })
       }
     }
   }
   array[array.length - 1].disable = 'disabled'
+  console.log(array)
   return {
     lista: array,
     contador: multiplicador,
@@ -42,6 +45,7 @@ export function addDate(array) {
       ).padStart(2, '0'),
       color: 'none',
       disable: 'disabled',
+      bloque: date.getMinutes() % 5 == 0 ? true : false
     })
 
     return newArray

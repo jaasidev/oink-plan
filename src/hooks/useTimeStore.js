@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { time, addDate } from '../utils/droptime'
-import {estrategias} from '../utils/estrategias'
+import { estrategia } from '../utils/estrategias'
 export const useTimeStore = create((set) => ({
   time: [],
   contador: 1,
@@ -10,9 +10,9 @@ export const useTimeStore = create((set) => ({
     stage: 0,
     low: 0,
   },
-  estrategias: estrategias,
+  estrategias: [],
   initialice: (value) => {
-    set(() => ({ time: time(value).lista, contador: time(value).contador }))
+    set((state) => ({ time: time(value).lista, contador: time(value).contador, estrategias: estrategia(state.time) }))
   },
   update: () => {
     set((state) => ({ time: addDate(state.time) }))
@@ -28,6 +28,6 @@ export const useTimeStore = create((set) => ({
     }))
   },
   updatEst: () => {
-    set(() => ({ estrategias: estrategias}))
+    set((state) => ({ estrategias: estrategia(state.time) }))
   }
 }))
