@@ -19,7 +19,7 @@ export function TimeSection() {
         </div>
         <div className='order-1 lg:w-1/4 lg:order-2 lg:pl-6 bg-base-300 lg:rounded-br-2xl lg:rounded-tl-none py-4 rounded-t-2xl'>
           <ul className='flex items-center gap-3 px-2 lg:block flex-wrap'>
-            <li className='py-1 leyend'>Arriba: {velas.hight}</li>
+            <li className='py-1 leyend'>Arriba: {velas.high}</li>
             <li className='py-1 leyend'>Mantienen:{velas.stage}</li>
             <li className='py-1 leyend'>Bajo:{velas.low}</li>
             <li className='py-1 font-bold'>

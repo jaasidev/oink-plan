@@ -6,7 +6,7 @@ export const useTimeStore = create((set) => ({
   contador: 1,
   velas: {
     total: 0,
-    hight: 0,
+    high: 0,
     stage: 0,
     low: 0,
   },
@@ -21,7 +21,7 @@ export const useTimeStore = create((set) => ({
     set((state) => ({
       velas: {
         total: state.time.filter((value) => value.color != 'none').length,
-        hight: state.time.filter((value) => value.color == 'hight').length,
+        high: state.time.filter((value) => value.color == 'high').length,
         stage: state.time.filter((value) => value.color == 'stage').length,
         low: state.time.filter((value) => value.color == 'low').length,
       },

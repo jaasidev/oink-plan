@@ -6,8 +6,8 @@ export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
   const setVelas = useTimeStore((state) => state.setVelas)
   const handleClick = () => {
     if (time[index].color == 'none') {
-      time[index].color = 'hight'
-    } else if (time[index].color == 'hight') {
+      time[index].color = 'high'
+    } else if (time[index].color == 'high') {
       time[index].color = 'stage'
     } else if (time[index].color == 'stage') {
       time[index].color = 'low'
@@ -18,7 +18,7 @@ export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
     updatEst()
   }
   const borde = bloque && disabled != 'disabled' ? 'border border-pink-500' : ''
-  const bg = color == 'hight' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''
+  const bg = color == 'high' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''
   return (
     <button
       className={`btn  w-15 ${bg} ${borde}`}
