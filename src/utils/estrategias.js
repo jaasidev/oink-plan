@@ -260,13 +260,56 @@ export function estrategia(time) {
       description:
         'Si las velas 1 y 3 son del mismo color, apuesta a ese color en la vela 5. Gale 1 en la vela 7 y Gale 2 en la vela 9, siguiendo el mismo color.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+        let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
 
+        while (index + 9 < ultimo) {
+
+          if (time[index].color == time[index + 2].color && time[index].color !== 'none') {
+
+            if (time[index].color == time[index + 4].color) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index].color == time[index + 6].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index + 6].color != 'none' && time[index].color == time[index + 8].color) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+
+          index += 10
+        }
+
+
+        const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+
+        if (time[seguimiento].color == time[seguimiento + 2].color && time[seguimiento].color !== 'none' && seguimiento + 4 < length - 1) {
+          uno = 100
+
+          if (time[seguimiento].color == time[seguimiento + 4].color) {
+            uno=0
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[seguimiento + 4].color != 'none') {
+            uno = 0
+            dos = 100
+            if (time[seguimiento].color == time[seguimiento + 6].color) {
+              dos=0
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            }
+          } else if (time[seguimiento + 6].color != 'none') {
+            dos = 0
+            tres = 100
+            if (time[seguimiento].color == time[seguimiento + 8].color) {
+              tres=0
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+        }
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
