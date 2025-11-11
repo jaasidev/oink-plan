@@ -487,7 +487,7 @@ export function estrategia(time) {
             } else if (time[bloque + 4].color !== 'none') {
               uno = 0
               dos = 100
-              if (time[bloque + 3].color == time[bloque +5].color) {
+              if (time[bloque + 3].color == time[bloque + 5].color) {
                 confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
                 dos = 0
               } else if (time[bloque + 5].color != 'none') {
@@ -522,13 +522,75 @@ export function estrategia(time) {
       description:
         'Considera el color minoritario de las velas 1, 2 y 3. Apuesta a ese color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
 
+        let index = instancia
+
+        while (index < ultimo) {
+          let trozo = time.slice(index, index + 3)
+          const alto = trozo.filter(value => value.color == 'high').length
+          const bajo = trozo.filter(value => value.color == 'low').length
+          const balance = alto > bajo ? 'low' : alto == bajo ? '' : 'high'
+
+          if (balance != '') {
+            if (time[index + 4].color == balance) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index + 5].color == balance) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index + 5].color != 'none' && time[index + 6].color == balance) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+
+
+          index += 5
+        }
+
+        if (ultimo + 3 > length - 1) {
+          const pending = time.slice(ultimo, ultimo + 3)
+          const pendingAlto = pending.filter(value => value.color === 'high').length
+          const pendingBajo = pending.filter(value => value.color === 'low').length
+          const balance = pendingAlto < pendingBajo ? 'high' : pendingAlto == pendingBajo ? '' : 'low'
+
+          if (balance !== '' && ultimo + 4 <= length - 1) {
+            uno = 100
+
+            if (time[ultimo].color != 'none') {
+              if (balance == time[ultimo + 4].color) {
+                confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+                uno = 0
+              } else {
+                uno = 0
+                dos = 100
+                if ((time[ultimo + 4].color != 'none')) {
+                  if (balance == time[ultimo + 5].color) {
+                    confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+                    dos = 0
+                  } else {
+                    dos = 0
+                    tres = 100
+                    if (time[ultimo + 5].color != 'none') {
+                      if (balance == time[ultimo + 6].color) {
+                        confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                        tres = 0
+                      } else {
+                        tres = 0
+                      }
+                    }
+                  }
+                }
+
+              }
+            }
+
+          }
+        }
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
@@ -537,13 +599,58 @@ export function estrategia(time) {
       description:
         'Si las velas 1 y 2 son del mismo color, apuesta a ese mismo color en la vela 3. Gales en las velas 4 y 5, siguiendo el mismo color.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+
+        let index = instancia
+
+        while (index < ultimo) {
+
+          if (time[index].color == time[index + 1].color && time[index].color != 'none') {
+
+            if (time[index].color == time[index + 2].color) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index].color == time[index + 3].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index].color == time[index + 4].color) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+
+          index += 5
+        }
+
+        if (ultimo + 3 <= length - 1) {
+
+          if (time[ultimo].color == time[ultimo + 1].color && time[ultimo].color != 'none') {
+            uno = 100
+
+            if (time[ultimo].color == time[ultimo + 2].color) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[ultimo + 2].color != 'none') {
+              dos = 100
+              uno = 0
+              if (time[ultimo].color == time[ultimo + 3].color) {
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              }
+            } else if (time[ultimo + 3].color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[ultimo].color == time[ultimo + 4].color) {
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              }
+            }
+          }
+        }
+
+
 
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
