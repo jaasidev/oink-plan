@@ -533,36 +533,6 @@ export function estrategia(time) {
       },
     },
     {
-      title: 'Mejor de 5',
-      description:
-        'Considera el color mayoritario de las 5 velas del cuadrante. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8.',
-      estrategia: () => {
-
-
-        return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
-        }
-      },
-    },
-    {
-      title: 'Mejor de 5 (Opuesto)',
-      description:
-        'Considera el color mayoritario de las 5 velas. Apuesta al color OPUESTO en la vela 6. Gales en las velas 7 y 8, siguiendo el color opuesto.',
-      estrategia: () => {
-
-
-        return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
-        }
-      },
-    },
-    {
       title: '2 Iguales y Continuación',
       description:
         'Si las velas 1 y 2 son del mismo color, apuesta a ese mismo color en la vela 3. Gales en las velas 4 y 5, siguiendo el mismo color.',
