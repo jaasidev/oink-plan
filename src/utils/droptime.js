@@ -5,7 +5,7 @@ export function time(multiplicador) {
     for (let i = 0; i < 60 / multiplicador; i++) {
       if (date.getMinutes() >= i * multiplicador) {
         array.unshift({
-          hours: String(date.getHours()).padStart(2, '0') - j,
+          hours: (String(date.getHours() - j).padStart(2, '0')) >= 0 ? (String(date.getHours() - j).padStart(2, '0')) : (String(date.getHours() - j + 12).padStart(2, '0')),
           minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
           color: 'none',
           disable: false,
@@ -13,7 +13,7 @@ export function time(multiplicador) {
         })
       } else {
         array.unshift({
-          hours: String(date.getHours()).padStart(2, '0') - j - 1,
+          hours: (String(date.getHours() - j - 1).padStart(2, '0')) >= 0 ? String(date.getHours() - j - 1).padStart(2, '0') : String(date.getHours() + 12 - j - 1).padStart(2, '0'),
           minutes: String(
             60 + date.getMinutes() - i * multiplicador
           ).padStart(2, '0'),
