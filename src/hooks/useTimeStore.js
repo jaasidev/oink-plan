@@ -12,7 +12,8 @@ export const useTimeStore = create((set) => ({
   },
   estrategias: [],
   initialice: (value) => {
-    set((state) => ({ time: time(value).lista, contador: time(value).contador, estrategias: estrategia(state.time) }))
+    set(() => ({ time: time(value).lista, contador: time(value).contador }))
+    set((state) => ({ estrategias: estrategia(state.time) }))
   },
   update: () => {
     set((state) => ({ time: addDate(state.time) }))
