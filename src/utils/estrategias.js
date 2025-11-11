@@ -1,4 +1,3 @@
-
 export function estrategia(time) {
   const instancia = time.findIndex((value) => value.bloque == true)
   const ultimo = time.findLastIndex((value) => value.bloque == true)
@@ -282,28 +281,30 @@ export function estrategia(time) {
 
         const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
 
-        if (time[seguimiento].color == time[seguimiento + 2].color && time[seguimiento].color !== 'none' && seguimiento + 4 < length - 1) {
-          uno = 100
-
-          if (time[seguimiento].color == time[seguimiento + 4].color) {
-            uno=0
-            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
-          } else if (time[seguimiento + 4].color != 'none') {
-            uno = 0
-            dos = 100
-            if (time[seguimiento].color == time[seguimiento + 6].color) {
-              dos=0
-              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-            }
-          } else if (time[seguimiento + 6].color != 'none') {
-            dos = 0
-            tres = 100
-            if (time[seguimiento].color == time[seguimiento + 8].color) {
-              tres=0
-              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+        if (seguimiento + 4 < length - 1) {
+          if (time[seguimiento].color == time[seguimiento + 2].color && time[seguimiento].color !== 'none') {
+            uno = 100
+            if (time[seguimiento].color == time[seguimiento + 4].color) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[seguimiento + 4].color != 'none') {
+              uno = 0
+              dos = 100
+              if (time[seguimiento].color == time[seguimiento + 6]?.color) {
+                dos = 0
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              }
+            } else if (time[seguimiento + 6]?.color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[seguimiento].color == time[seguimiento + 8].color) {
+                tres = 0
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              }
             }
           }
         }
+
 
         return {
           uno: uno,
@@ -333,13 +334,57 @@ export function estrategia(time) {
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 2. Gale 1 en la vela 3 y Gale 2 en la vela 4, siguiendo el mismo color.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+        let index = instancia
+
+        while (index < ultimo) {
+          if (time[index].color != 'none' && time[index + 1].color != 'none') {
+
+            if (time[index].color == time[index + 1].color) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index + 1].color != 'none' && time[index].color == time[index + 2].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index + 1].color != 'none' && time[index + 2].color != 'none' && time[index].color == time[index + 3].color) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+
+          index += 5
+        }
+
+        if (time[ultimo].color != 'none' && (ultimo + 1 < length - 1)) {
+          uno = 100
+
+          if (time[ultimo].color == time[ultimo + 1].color) {
+            uno = 0
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[ultimo + 1].color != 'none') {
+            uno = 0
+            dos = 100
+            if (time[ultimo].color == time[ultimo + 2].color) {
+              dos = 0
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            }
+          } else if (time[ultimo + 2].color != 'none') {
+            dos = 0
+            tres = 100
+            if (time[ultimo].color == time[ultimo + 3].color) {
+              tres = 0
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          } else if (time[ultimo + 3]?.color != 'none' && time[ultimo + 3]?.color != time[ultimo].color) {
+            uno = 0
+            dos = 0
+            tres = 0
+          }
+        }
 
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
@@ -348,13 +393,57 @@ export function estrategia(time) {
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+        let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
+
+        while (index + 9 < ultimo) {
+
+          if (time[index].color !== 'none') {
+
+            if (time[index].color == time[index + 4].color) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index].color == time[index + 5].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index + 4].color != 'none' && time[index + 5].color != 'none' && time[index].color == time[index + 6].color) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+
+          index += 10
+        }
+
+        const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+
+        if (seguimiento + 4 < length - 1) {
+          if (time[seguimiento].color !== 'none') {
+            uno = 100
+            if (time[seguimiento].color == time[seguimiento + 4].color) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[seguimiento + 4].color != 'none') {
+              uno = 0
+              dos = 100
+              if (time[seguimiento].color == time[seguimiento + 5]?.color) {
+                dos = 0
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              }
+            } else if (time[seguimiento + 5]?.color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[seguimiento].color == time[seguimiento + 6].color) {
+                tres = 0
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              }
+            }
+          }
+        }
 
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
@@ -364,12 +453,67 @@ export function estrategia(time) {
         'Considera el color de la vela 4. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
       estrategia: () => {
 
+        let confiabilidad = 0
 
+        let uno = 0, dos = 0,
+          tres = 0
+        if (time.length > 0) {
+
+          let index = instancia
+          const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
+          console.log(time[bloque].minutes)
+          while (index < bloque) {
+            if (time[index + 3].color != 'none') {
+              if (time[index + 3].color == time[index + 4].color) {
+                confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+              } else if (time[index + 3].color == time[index + 5].color) {
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              } else if (time[index + 3].color == time[index + 6].color) {
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              }
+            }
+            index += 5
+          }
+
+          if (bloque + 4 > length - 1) {
+            uno = 0
+            dos = 0
+            tres = 0
+          } else if (time[bloque + 3].color != 'none') {
+            uno = 100
+            if (time[bloque + 3].color == time[bloque + 4].color) {
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+              uno = 0
+            } else if (time[bloque + 4].color !== 'none') {
+              uno = 0
+              dos = 100
+              if (time[bloque + 3].color == time[bloque +5].color) {
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+                dos = 0
+              } else if (time[bloque + 5].color != 'none') {
+                dos = 0
+                tres = 100
+                if (time[bloque + 3].color == time[bloque + 6].color) {
+                  confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                  tres = 0
+                }
+                else if (time[bloque + 6].color != 'none') {
+                  tres = 0
+                }
+              }
+            }
+
+          } else {
+            uno = 0
+            dos = 0
+            tres = 0
+          }
+        }
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
