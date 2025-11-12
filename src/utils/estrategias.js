@@ -46,7 +46,7 @@ export function estrategia(time) {
 
           let index = instancia
           const bloque = ultimo + 3 < length - 1 ? ultimo : ultimo - 5
-          console.log(time[bloque].minutes)
+
           while (index < bloque) {
             if (time[index + 2].color != 'none') {
               if (time[index + 2].color == time[index + 3].color) {
@@ -319,13 +319,71 @@ export function estrategia(time) {
       description:
         'Considera la mayoría de las velas 3, 4 y 5. Apuesta a ese color en la vela 3 del SIGUIENTE cuadrante. Gales en la vela 3 de los cuadrantes subsiguientes.',
       estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+        let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
 
+        while (index + 20 < ultimo) {
+          let trozo = time.slice(index + 2, index + 5)
+
+          const alto = trozo.filter(value => value.color == 'high')
+          const bajo = trozo.filter(value => value.color == 'low')
+          const balance = alto > bajo ? 'high' : alto == bajo ? '' : 'low'
+
+          if (balance == time[index + 7].color) {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (balance == time[index + 12].color && time[index + 7].color != 'none') {
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (balance == time[index + 17].color && time[index + 13].color !== 'none') {
+            confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+          }
+          index += 10
+        }
+
+        console.log(time[index].minutes)
+        if (index + 5 <= length - 1) {
+          let trozo = time.slice(index, index + 6)
+          const alto = trozo.filter(value => value.color == 'high')
+          const bajo = trozo.filter(value => value.color == 'low')
+          const balance = alto > bajo ? 'high' : alto == bajo ? '' : 'low'
+
+          if (index + 7 <= length - 1) {
+            uno = 100
+
+            if (time[index + 7].color == balance) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[index + 7].color != 'none') {
+              uno = 0
+
+              if (index + 12 <= length - 1) {
+                dos = 100
+
+                if (time[index + 12].color == balance) {
+                  dos = 0
+                  confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+                } else if (time[index + 12].color != 'none') {
+                  dos = 0
+                  if (index + 17 <= length - 1) {
+                    tres = 100
+
+                    if (time[index + 17].color == balance) {
+                      tres = 0
+                      confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                    } else if (time[index + 17].color != 'none') {
+                      tres = 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
@@ -461,7 +519,7 @@ export function estrategia(time) {
 
           let index = instancia
           const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
-          console.log(time[bloque].minutes)
+
           while (index < bloque) {
             if (time[index + 3].color != 'none') {
               if (time[index + 3].color == time[index + 4].color) {
