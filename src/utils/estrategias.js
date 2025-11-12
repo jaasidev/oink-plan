@@ -8,13 +8,68 @@ export function estrategia(time) {
       description:
         'En un cuadrante, considera el color minoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
       estrategia: () => {
+        let confiabilidad = 0
+
+        let uno = 0, dos = 0,
+          tres = 0
+        let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
+        while (index + 9 < ultimo) {
+          let trozo = time.slice(index + 2, index + 5)
+
+          const alto = trozo.filter(value => value.color == 'high')
+          const bajo = trozo.filter(value => value.color == 'low')
+          const balance = alto < bajo ? 'low' : alto == bajo ? '' : 'high'
+
+          if (time[index + 5].color == balance) {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[index + 5].color != 'none' && time[index + 6] == balance) {
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (time[index + 5].color != 'none' && time[index + 6].color != 'none' && time[index + 7] == balance) {
+            confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+          }
+          index += 10
+        }
+
+        const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+
+        if (seguimiento + 5 < length - 1) {
+          let trozo = time.slice(seguimiento, seguimiento + 5)
+          const pendingAlto = trozo.filter(value => value.color == 'high')
+          const pendingBajo = trozo.filter(value => value.color == 'low')
+          const balance = pendingAlto > pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
+
+          if (balance != 'none') {
+            uno = 100
+            if (time[seguimiento + 5].color == balance) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[seguimiento + 5].color != 'none') {
+              uno = 0
+              dos = 100
+              if (time[seguimiento + 6].color == balance) {
+                dos = 0
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              }
+            } else if ( time[seguimiento + 6].color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[seguimiento + 7].color == balance) {
+                tres = 0
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              } else if (time[seguimiento].color != 'none') {
+                tres = 0
+              }
+            }
+          }
+        }
+
 
 
         return {
-          uno: 80,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
@@ -23,13 +78,65 @@ export function estrategia(time) {
       description:
         'En un cuadrante, considera el color mayoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
       estrategia: () => {
+        let confiabilidad = 0
 
+        let uno = 0, dos = 0,
+          tres = 0
+        let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
+        while (index + 9 < ultimo) {
+          let trozo = time.slice(index + 2, index + 5)
+
+          const alto = trozo.filter(value => value.color == 'high')
+          const bajo = trozo.filter(value => value.color == 'low')
+          const balance = alto < bajo ? 'high' : alto == bajo ? '' : 'low'
+          if (time[index + 5].color == balance) {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[index + 5].color != 'none' && time[index + 6] == balance) {
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (time[index + 6].color != 'none' && time[index + 7] == balance) {
+            confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+          }
+          index += 10
+        }
+
+        const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+
+        if (seguimiento + 5 < length - 1) {
+          let trozo = time.slice(seguimiento, seguimiento + 5)
+          const pendingAlto = trozo.filter(value => value.color == 'high')
+          const pendingBajo = trozo.filter(value => value.color == 'low')
+          const balance = pendingAlto < pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
+
+          if (balance != 'none') {
+            uno = 100
+            if (time[seguimiento + 5].color == balance) {
+              uno = 0
+              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            } else if (time[seguimiento + 5].color != 'none') {
+              uno = 0
+              dos = 100
+              if (time[seguimiento + 6].color == balance) {
+                dos = 0
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              }
+            } else if (time[seguimiento + 6].color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[seguimiento + 7].color == balance) {
+                tres = 0
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              } else if (time[seguimiento].color != 'none') {
+                tres = 0
+              }
+            }
+          }
+        }
 
         return {
-          uno: 0,
-          dos: 0,
-          tres: 0,
-          confiabilidad: 10
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad
         }
       },
     },
