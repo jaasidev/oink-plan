@@ -16,8 +16,8 @@ export function estrategia(time) {
         while (index + 9 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
 
-          const alto = trozo.filter(value => value.color == 'high')
-          const bajo = trozo.filter(value => value.color == 'low')
+          const alto = trozo.filter(value => value.color == 'high').length
+          const bajo = trozo.filter(value => value.color == 'low').length
           const balance = alto < bajo ? 'low' : alto == bajo ? '' : 'high'
 
           if (time[index + 5].color == balance) {
@@ -34,8 +34,8 @@ export function estrategia(time) {
 
         if (seguimiento + 5 < length - 1) {
           let trozo = time.slice(seguimiento, seguimiento + 5)
-          const pendingAlto = trozo.filter(value => value.color == 'high')
-          const pendingBajo = trozo.filter(value => value.color == 'low')
+          const pendingAlto = trozo.filter(value => value.color == 'high').length
+          const pendingBajo = trozo.filter(value => value.color == 'low').length
           const balance = pendingAlto > pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
           if (balance != '') {
@@ -86,8 +86,8 @@ export function estrategia(time) {
         while (index + 9 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
 
-          const alto = trozo.filter(value => value.color == 'high')
-          const bajo = trozo.filter(value => value.color == 'low')
+          const alto = trozo.filter(value => value.color == 'high').length
+          const bajo = trozo.filter(value => value.color == 'low').length
           const balance = alto < bajo ? 'high' : alto == bajo ? '' : 'low'
           if (time[index + 5].color == balance) {
             confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
@@ -103,8 +103,8 @@ export function estrategia(time) {
 
         if (seguimiento + 5 < length - 1) {
           let trozo = time.slice(seguimiento, seguimiento + 5)
-          const pendingAlto = trozo.filter(value => value.color == 'high')
-          const pendingBajo = trozo.filter(value => value.color == 'low')
+          const pendingAlto = trozo.filter(value => value.color == 'high').length
+          const pendingBajo = trozo.filter(value => value.color == 'low').length
           const balance = pendingAlto < pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
           if (balance != '') {
@@ -432,8 +432,8 @@ export function estrategia(time) {
         while (index + 20 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
 
-          const alto = trozo.filter(value => value.color == 'high')
-          const bajo = trozo.filter(value => value.color == 'low')
+          const alto = trozo.filter(value => value.color == 'high').length
+          const bajo = trozo.filter(value => value.color == 'low').length
           const balance = alto > bajo ? 'high' : alto == bajo ? '' : 'low'
 
           if (balance == time[index + 7].color) {
@@ -445,16 +445,18 @@ export function estrategia(time) {
           }
           index += 10
         }
+
         if (index + 5 <= length - 1) {
           let trozo = time.slice(index, index + 6)
-          const alto = trozo.filter(value => value.color == 'high')
-          const bajo = trozo.filter(value => value.color == 'low')
-          const balance = alto > bajo ? 'high' : alto == bajo ? '' : 'low'
+          const seguimientoAlto = trozo.filter(value => value.color == 'high').length
+          const seguimientoBajo = trozo.filter(value => value.color == 'low').length
+          const seguimientoBalance = seguimientoAlto > seguimientoBajo ? 'high' : seguimientoAlto == seguimientoBajo ? '' : 'low'
+          
 
-          if (index + 7 <= length - 1 && balance != '') {
+          if (index + 7 <= length - 1 && seguimientoBalance != '') {
             uno = 100
 
-            if (time[index + 7].color == balance) {
+            if (time[index + 7].color == seguimientoBalance) {
               uno = 0
               confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
             } else if (time[index + 7].color != 'none') {
@@ -463,7 +465,7 @@ export function estrategia(time) {
               if (index + 12 <= length - 1) {
                 dos = 100
 
-                if (time[index + 12].color == balance) {
+                if (time[index + 12].color == seguimientoBalance) {
                   dos = 0
                   confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
                 } else if (time[index + 12].color != 'none') {
@@ -471,7 +473,7 @@ export function estrategia(time) {
                   if (index + 17 <= length - 1) {
                     tres = 100
 
-                    if (time[index + 17].color == balance) {
+                    if (time[index + 17].color == seguimientoBalance) {
                       tres = 0
                       confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                     } else if (time[index + 17].color != 'none') {
