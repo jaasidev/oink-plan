@@ -38,7 +38,7 @@ export function estrategia(time) {
           const pendingBajo = trozo.filter(value => value.color == 'low')
           const balance = pendingAlto > pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
-          if (balance != 'none') {
+          if (balance != '') {
             uno = 100
             if (time[seguimiento + 5].color == balance) {
               uno = 0
@@ -50,7 +50,7 @@ export function estrategia(time) {
                 dos = 0
                 confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
               }
-            } else if ( time[seguimiento + 6].color != 'none') {
+            } else if (time[seguimiento + 6].color != 'none') {
               dos = 0
               tres = 100
               if (time[seguimiento + 7].color == balance) {
@@ -107,7 +107,7 @@ export function estrategia(time) {
           const pendingBajo = trozo.filter(value => value.color == 'low')
           const balance = pendingAlto < pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
-          if (balance != 'none') {
+          if (balance != '') {
             uno = 100
             if (time[seguimiento + 5].color == balance) {
               uno = 0
@@ -445,15 +445,13 @@ export function estrategia(time) {
           }
           index += 10
         }
-
-        console.log(time[index].minutes)
         if (index + 5 <= length - 1) {
           let trozo = time.slice(index, index + 6)
           const alto = trozo.filter(value => value.color == 'high')
           const bajo = trozo.filter(value => value.color == 'low')
           const balance = alto > bajo ? 'high' : alto == bajo ? '' : 'low'
 
-          if (index + 7 <= length - 1) {
+          if (index + 7 <= length - 1 && balance != '') {
             uno = 100
 
             if (time[index + 7].color == balance) {
@@ -830,7 +828,7 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          confiabilidad: 10
+          confiabilidad: 0
         }
       },
     },
