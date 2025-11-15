@@ -1,4 +1,6 @@
-export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, confiabilidad }) {
+import { ApuestaBadge } from "../badges/ApuestaBadge"
+
+export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, confiabilidad, prediccion }) {
 
     let color
 
@@ -14,7 +16,7 @@ export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, 
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <p>{description}</p>
-                
+                <ApuestaBadge prediccion={prediccion} />
 
                 <div className="mt-5 w-full">
                     <fieldset className="fieldset">

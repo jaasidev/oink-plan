@@ -12,7 +12,7 @@ export function Estrategias() {
         {
           estrategias.map((value, index)=>{
             return (
-              <CardEstrategia description={value.description} name={value.title} key={index} velaUno={value.estrategia(time).uno} velaDos={value.estrategia(time).dos} velaTres={value.estrategia(time).tres} confiabilidad={value.estrategia(time).confiabilidad}/>
+              <CardEstrategia description={value.description} name={value.title} key={index} velaUno={value.estrategia(time).uno} velaDos={value.estrategia(time).dos} velaTres={value.estrategia(time).tres} confiabilidad={value.estrategia(time).confiabilidad} prediccion={value.estrategia(time).prediccion}/>
             )
           })
         }

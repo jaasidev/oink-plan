@@ -1,12 +1,16 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
 @plugin "daisyui";
 
 
-.grid-layout{
+
+
+.grid-layout {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 
-.leyend::before{
+.leyend::before {
     display: inline-block;
     margin-right: 5px;
     content: '';
@@ -14,14 +18,14 @@
     height: 10px;
 }
 
-.leyend:first-child:before{
+.leyend:first-child:before {
     @apply bg-success
 }
 
-.leyend:nth-child(2)::before{
+.leyend:nth-child(2)::before {
     @apply bg-warning
 }
 
-.leyend:nth-child(3)::before{
+.leyend:nth-child(3)::before {
     @apply bg-error
 }
