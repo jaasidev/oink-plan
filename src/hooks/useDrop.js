@@ -4,6 +4,7 @@ export function useDrop() {
   const time = useTimeStore((state) => state.time)
   const update = useTimeStore((state) => state.update)
   const contador = useTimeStore((state) => state.contador)
+  
   useEffect(() => {
     let resta = 0
     if (new Date().getSeconds() != 0) {
@@ -18,6 +19,8 @@ export function useDrop() {
       clearInterval(resta)
     }
   }, [time, update, contador])
+
+
 
   return time
 }

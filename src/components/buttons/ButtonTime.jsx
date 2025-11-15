@@ -16,6 +16,7 @@ export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
     }
     setVelas()
     updatEst()
+    localStorage.setItem('prev', JSON.stringify(time))
   }
   const borde = bloque && disabled != 'disabled' ? 'border border-pink-500' : ''
   const bg = color == 'high' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''

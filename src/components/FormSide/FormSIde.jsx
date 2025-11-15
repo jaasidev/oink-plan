@@ -1,5 +1,6 @@
 import { BrokerList } from '../BrokerList/BrokerList'
 import { useTimeStore } from '../../hooks/useTimeStore'
+import { time } from '../../utils/droptime'
 import { useRef } from 'react'
 export function FormSide() {
   const minRef = useRef(null)
@@ -7,7 +8,7 @@ export function FormSide() {
 
   const handlSubmit = (event) => {
     event.preventDefault()
-    initialice(minRef.current.value)
+    initialice(time(minRef.current.value))
   }
   return (
     <>

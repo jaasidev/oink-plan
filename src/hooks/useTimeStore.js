@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { time, addDate } from '../utils/droptime'
+import { addDate } from '../utils/droptime'
 import { estrategia } from '../utils/estrategias'
 export const useTimeStore = create((set) => ({
   time: [],
@@ -12,7 +12,7 @@ export const useTimeStore = create((set) => ({
   },
   estrategias: [],
   initialice: (value) => {
-    set(() => ({ time: time(value).lista, contador: time(value).contador }))
+    set(() => ({ time: value.lista, contador: value.contador }))
     set((state) => ({ estrategias: estrategia(state.time) }))
   },
   update: () => {
@@ -29,6 +29,10 @@ export const useTimeStore = create((set) => ({
     }))
   },
   updatEst: () => {
+    set((state) => ({ estrategias: estrategia(state.time) }))
+  },
+  updateLocal: () => {
+    set(() => ({ time: JSON.parse(localStorage.getItem('prev')) }))
     set((state) => ({ estrategias: estrategia(state.time) }))
   }
 }))

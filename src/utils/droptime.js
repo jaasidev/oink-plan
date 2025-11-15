@@ -48,6 +48,7 @@ export function addDate(array) {
     })
     newArray.shift()
 
+
     return newArray
   }
 
