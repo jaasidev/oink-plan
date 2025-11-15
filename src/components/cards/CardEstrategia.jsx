@@ -10,10 +10,11 @@ export function CardEstrategia({ name, description, velaUno, velaDos, velaTres, 
         color = 'error'
     }
     return (
-        <div className="card w-96 bg-base-100 card-lg border-secondary border">
+        <div className="card w-96 max-w-full bg-base-100 card-lg border-secondary border">
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <p>{description}</p>
+                
 
                 <div className="mt-5 w-full">
                     <fieldset className="fieldset">

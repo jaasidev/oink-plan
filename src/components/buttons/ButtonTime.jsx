@@ -8,9 +8,9 @@ export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
     if (time[index].color == 'none') {
       time[index].color = 'high'
     } else if (time[index].color == 'high') {
-      time[index].color = 'stage'
-    } else if (time[index].color == 'stage') {
       time[index].color = 'low'
+    } else if (time[index].color == 'low') {
+      time[index].color = 'stage'
     } else {
       time[index].color = 'none'
     }

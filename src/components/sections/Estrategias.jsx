@@ -8,7 +8,7 @@ export function Estrategias() {
   return (
     <>
       <h2 className='text-center mt-10 mb-4 text-2xl font-bold'>Estrategias</h2>
-      <section className='grid grid-layout p-6 pt-2 gap-7 place-content-center'>
+      <section className='grid grid-layout p-6 pt-2 gap-7 justify-items-center'>
         {
           estrategias.map((value, index)=>{
             return (

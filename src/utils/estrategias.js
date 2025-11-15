@@ -32,12 +32,12 @@ export function estrategia(time) {
 
         const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
 
-        if (seguimiento + 5 < length - 1) {
-          let trozo = time.slice(seguimiento, seguimiento + 5)
-          const pendingAlto = trozo.filter(value => value.color == 'high').length
-          const pendingBajo = trozo.filter(value => value.color == 'low').length
-          const balance = pendingAlto > pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
+        let trozo = time.slice(seguimiento, seguimiento + 5)
+        const pendingAlto = trozo.filter(value => value.color == 'high').length
+        const pendingBajo = trozo.filter(value => value.color == 'low').length
+        const balance = pendingAlto > pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
+        if (seguimiento + 5 < length - 1) {
           if (balance != '') {
             uno = 100
             if (time[seguimiento + 5].color == balance) {
@@ -69,7 +69,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: balance,
         }
       },
     },
@@ -101,12 +102,12 @@ export function estrategia(time) {
 
         const seguimiento = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
 
-        if (seguimiento + 5 < length - 1) {
-          let trozo = time.slice(seguimiento, seguimiento + 5)
-          const pendingAlto = trozo.filter(value => value.color == 'high').length
-          const pendingBajo = trozo.filter(value => value.color == 'low').length
-          const balance = pendingAlto < pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
 
+        let trozo = time.slice(seguimiento, seguimiento + 5)
+        const pendingAlto = trozo.filter(value => value.color == 'high').length
+        const pendingBajo = trozo.filter(value => value.color == 'low').length
+        const balance = pendingAlto < pendingBajo ? 'low' : pendingAlto == pendingBajo ? '' : 'high'
+        if (seguimiento + 5 < length - 1) {
           if (balance != '') {
             uno = 100
             if (time[seguimiento + 5].color == balance) {
@@ -136,7 +137,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: balance,
         }
       },
     },
@@ -149,10 +151,9 @@ export function estrategia(time) {
 
         let uno = 0, dos = 0,
           tres = 0
+        let index = instancia
+        const bloque = ultimo + 3 < length - 1 ? ultimo : ultimo - 5
         if (time.length > 0) {
-
-          let index = instancia
-          const bloque = ultimo + 3 < length - 1 ? ultimo : ultimo - 5
 
           while (index < bloque) {
             if (time[index + 2].color != 'none') {
@@ -205,7 +206,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[bloque + 2].color,
         }
       },
     },
@@ -280,7 +282,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: balance,
         }
       },
     },
@@ -357,7 +360,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: balance,
         }
       },
     },
@@ -404,7 +408,7 @@ export function estrategia(time) {
             } else if (time[seguimiento + 6]?.color != 'none') {
               dos = 0
               tres = 100
-              if (time[seguimiento].color == time[seguimiento + 8].color) {
+              if (time[seguimiento].color == time[seguimiento + 8]?.color) {
                 tres = 0
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
               }
@@ -417,7 +421,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[seguimiento].color,
         }
       },
     },
@@ -446,39 +451,38 @@ export function estrategia(time) {
           index += 10
         }
 
-        if (index + 5 <= length - 1) {
-          let trozo = time.slice(index, index + 6)
-          const seguimientoAlto = trozo.filter(value => value.color == 'high').length
-          const seguimientoBajo = trozo.filter(value => value.color == 'low').length
-          const seguimientoBalance = seguimientoAlto > seguimientoBajo ? 'high' : seguimientoAlto == seguimientoBajo ? '' : 'low'
-          
 
-          if (index + 7 <= length - 1 && seguimientoBalance != '') {
-            uno = 100
+        let trozo = time.slice(index, index + 6)
+        const seguimientoAlto = trozo.filter(value => value.color == 'high').length
+        const seguimientoBajo = trozo.filter(value => value.color == 'low').length
+        const seguimientoBalance = seguimientoAlto > seguimientoBajo ? 'high' : seguimientoAlto == seguimientoBajo ? '' : 'low'
 
-            if (time[index + 7].color == seguimientoBalance) {
-              uno = 0
-              confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
-            } else if (time[index + 7].color != 'none') {
-              uno = 0
 
-              if (index + 12 <= length - 1) {
-                dos = 100
+        if (index + 7 <= length - 1 && seguimientoBalance != '') {
+          uno = 100
 
-                if (time[index + 12].color == seguimientoBalance) {
-                  dos = 0
-                  confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-                } else if (time[index + 12].color != 'none') {
-                  dos = 0
-                  if (index + 17 <= length - 1) {
-                    tres = 100
+          if (time[index + 7].color == seguimientoBalance) {
+            uno = 0
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[index + 7].color != 'none') {
+            uno = 0
 
-                    if (time[index + 17].color == seguimientoBalance) {
-                      tres = 0
-                      confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-                    } else if (time[index + 17].color != 'none') {
-                      tres = 0
-                    }
+            if (index + 12 <= length - 1) {
+              dos = 100
+
+              if (time[index + 12].color == seguimientoBalance) {
+                dos = 0
+                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              } else if (time[index + 12].color != 'none') {
+                dos = 0
+                if (index + 17 <= length - 1) {
+                  tres = 100
+
+                  if (time[index + 17].color == seguimientoBalance) {
+                    tres = 0
+                    confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                  } else if (time[index + 17].color != 'none') {
+                    tres = 0
                   }
                 }
               }
@@ -486,11 +490,13 @@ export function estrategia(time) {
           }
         }
 
+
         return {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: seguimientoBalance,
         }
       },
     },
@@ -549,7 +555,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[ultimo].color,
         }
       },
     },
@@ -608,7 +615,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[seguimiento].color,
         }
       },
     },
@@ -622,63 +630,64 @@ export function estrategia(time) {
 
         let uno = 0, dos = 0,
           tres = 0
-        if (time.length > 0) {
 
-          let index = instancia
-          const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
 
-          while (index < bloque) {
-            if (time[index + 3].color != 'none') {
-              if (time[index + 3].color == time[index + 4].color) {
-                confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
-              } else if (time[index + 3].color == time[index + 5].color) {
-                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-              } else if (time[index + 3].color == time[index + 6].color) {
-                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-              }
-            }
-            index += 5
-          }
+        let index = instancia
+        const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
 
-          if (bloque + 4 > length - 1) {
-            uno = 0
-            dos = 0
-            tres = 0
-          } else if (time[bloque + 3].color != 'none') {
-            uno = 100
-            if (time[bloque + 3].color == time[bloque + 4].color) {
+        while (index < bloque) {
+          if (time[index + 3].color != 'none') {
+            if (time[index + 3].color == time[index + 4].color) {
               confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
-              uno = 0
-            } else if (time[bloque + 4].color !== 'none') {
-              uno = 0
-              dos = 100
-              if (time[bloque + 3].color == time[bloque + 5].color) {
-                confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-                dos = 0
-              } else if (time[bloque + 5].color != 'none') {
-                dos = 0
-                tres = 100
-                if (time[bloque + 3].color == time[bloque + 6].color) {
-                  confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-                  tres = 0
-                }
-                else if (time[bloque + 6].color != 'none') {
-                  tres = 0
-                }
+            } else if (time[index + 3].color == time[index + 5].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[index + 3].color == time[index + 6].color) {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+            }
+          }
+          index += 5
+        }
+
+        if (bloque + 4 > length - 1) {
+          uno = 0
+          dos = 0
+          tres = 0
+        } else if (time[bloque + 3].color != 'none') {
+          uno = 100
+          if (time[bloque + 3].color == time[bloque + 4].color) {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+            uno = 0
+          } else if (time[bloque + 4].color !== 'none') {
+            uno = 0
+            dos = 100
+            if (time[bloque + 3].color == time[bloque + 5].color) {
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+              dos = 0
+            } else if (time[bloque + 5].color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[bloque + 3].color == time[bloque + 6].color) {
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                tres = 0
+              }
+              else if (time[bloque + 6].color != 'none') {
+                tres = 0
               }
             }
-
-          } else {
-            uno = 0
-            dos = 0
-            tres = 0
           }
+
+        } else {
+          uno = 0
+          dos = 0
+          tres = 0
         }
+
         return {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[bloque + 3].color,
         }
       },
     },
@@ -711,12 +720,12 @@ export function estrategia(time) {
           index += 5
         }
 
-        if (ultimo + 3 > length - 1) {
-          const pending = time.slice(ultimo, ultimo + 3)
-          const pendingAlto = pending.filter(value => value.color === 'high').length
-          const pendingBajo = pending.filter(value => value.color === 'low').length
-          const balance = pendingAlto < pendingBajo ? 'high' : pendingAlto == pendingBajo ? '' : 'low'
 
+        const pending = time.slice(ultimo, ultimo + 3)
+        const pendingAlto = pending.filter(value => value.color === 'high').length
+        const pendingBajo = pending.filter(value => value.color === 'low').length
+        const balance = pendingAlto < pendingBajo ? 'high' : pendingAlto == pendingBajo ? '' : 'low'
+        if (index + 5 <= length - 1) {
           if (balance !== '' && ultimo + 4 <= length - 1) {
             uno = 100
 
@@ -755,7 +764,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: balance,
         }
       },
     },
@@ -815,7 +825,8 @@ export function estrategia(time) {
           uno: uno,
           dos: dos,
           tres: tres,
-          confiabilidad: confiabilidad
+          confiabilidad: confiabilidad,
+          prediccion: time[ultimo].color,
         }
       },
     },
@@ -830,7 +841,8 @@ export function estrategia(time) {
           uno: 0,
           dos: 0,
           tres: 0,
-          confiabilidad: 0
+          confiabilidad: 0,
+           prediccion: '',
         }
       },
     },
