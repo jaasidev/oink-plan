@@ -47,7 +47,7 @@ export function addDate(array) {
       bloque: date.getMinutes() % 5 == 0 ? true : false
     })
     newArray.shift()
-
+    localStorage.setItem('prev', JSON.stringify(newArray))
 
     return newArray
   }
