@@ -1,6 +1,6 @@
 
 import { useTimeStore } from '../../hooks/useTimeStore'
-export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
+export function ButtonTime({ index, hours, minutes, bloque, color }) {
   const time = useTimeStore((state) => state.time)
   const updatEst = useTimeStore(state => state.updatEst)
   const setVelas = useTimeStore((state) => state.setVelas)
@@ -18,13 +18,13 @@ export function ButtonTime({ index, disabled, hours, minutes, bloque, color }) {
     updatEst()
     localStorage.setItem('prev', JSON.stringify(time))
   }
-  const borde = bloque && disabled != 'disabled' ? 'border border-pink-500' : ''
+  const borde = bloque  ? 'border border-pink-500' : ''
   const bg = color == 'high' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''
   return (
     <button
       className={`btn  w-15 ${bg} ${borde}`}
       onClick={handleClick}
-      disabled={disabled}>
+    >
       {hours}:{minutes}
     </button>
   )

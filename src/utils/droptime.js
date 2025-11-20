@@ -8,7 +8,6 @@ export function time(multiplicador) {
           hours: (String(date.getHours() - j).padStart(2, '0')) >= 0 ? (String(date.getHours() - j).padStart(2, '0')) : (String(date.getHours() - j + 24).padStart(2, '0')),
           minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
           color: 'none',
-          disable: false,
           bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
         })
       } else {
@@ -18,13 +17,11 @@ export function time(multiplicador) {
             60 + date.getMinutes() - i * multiplicador
           ).padStart(2, '0'),
           color: 'none',
-          disable: false,
           bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
         })
       }
     }
   }
-  array[array.length - 1].disable = 'disabled'
   console.log(array)
   return {
     lista: array,
@@ -35,7 +32,6 @@ export function time(multiplicador) {
 export function addDate(array) {
   if (array.length > 0) {
     const newArray = [...array]
-    newArray[array.length - 1].disable = false
     const date = new Date()
     newArray.push({
       hours: String(date.getHours()).padStart(2, '0'),
