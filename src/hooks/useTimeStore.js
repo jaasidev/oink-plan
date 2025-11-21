@@ -1,9 +1,8 @@
 import { create } from 'zustand'
-import { addDate } from '../utils/droptime'
 import { estrategia } from '../utils/estrategias'
 export const useTimeStore = create((set) => ({
   time: [],
-  contador: 1,
+  contador: 0,
   velas: {
     total: 0,
     high: 0,
@@ -11,12 +10,11 @@ export const useTimeStore = create((set) => ({
     low: 0,
   },
   estrategias: [],
-  initialice: (value) => {
-    set(() => ({ time: value.lista, contador: value.contador }))
-    set((state) => ({ estrategias: estrategia(state.time) }))
+  setTime: (value) => {
+    set(() => ({ time: value }))
   },
-  update: () => {
-    set((state) => ({ time: addDate(state.time) }))
+  setContador: (value) => {
+    set(() => ({ contador: value }))
   },
   setVelas: () => {
     set((state) => ({
@@ -28,11 +26,7 @@ export const useTimeStore = create((set) => ({
       },
     }))
   },
-  updatEst: () => {
-    set((state) => ({ estrategias: estrategia(state.time) }))
-  },
-  updateLocal: () => {
-    set(() => ({ time: JSON.parse(localStorage.getItem('prev')) }))
+  setEstrategias: () => {
     set((state) => ({ estrategias: estrategia(state.time) }))
   }
 }))
