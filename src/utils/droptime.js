@@ -22,11 +22,7 @@ export function time(multiplicador) {
       }
     }
   }
-  console.log(array)
-  return {
-    lista: array,
-    contador: multiplicador,
-  }
+  return array
 }
 
 export function addDate(array) {
@@ -43,10 +39,25 @@ export function addDate(array) {
       bloque: date.getMinutes() % 5 == 0 ? true : false
     })
     newArray.shift()
-    localStorage.setItem('prev', JSON.stringify(newArray))
+    sessionStorage.setItem('prev', JSON.stringify(newArray))
 
     return newArray
   }
 
   return []
+}
+
+export function changeColor(array, index) {
+  const newArray = [...array]
+  if (newArray[index].color == 'none') {
+    newArray[index].color = 'high'
+  } else if (newArray[index].color == 'high') {
+    newArray[index].color = 'low'
+  } else if (newArray[index].color == 'low') {
+    newArray[index].color = 'stage'
+  } else {
+    newArray[index].color = 'none'
+  }
+
+  return newArray
 }

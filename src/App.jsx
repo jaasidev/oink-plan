@@ -3,15 +3,20 @@ import { SideBar } from './components/sections/SideBar'
 import { useTimeStore } from './hooks/useTimeStore'
 import { useEffect } from 'react'
 
+
 function App() {
-  const updateLocal = useTimeStore((state) => state.updateLocal)
+  const setTime = useTimeStore((state) => state.setTime)
+  const setEstrategias = useTimeStore((state) => state.setEstrategias)
 
   useEffect(() => {
-    if (localStorage.getItem('prev') != null) {
-
-      updateLocal()
+    const prev = localStorage.getItem('prev')
+    if (prev) {
+      console.log(JSON.parse(prev))
+      setTime(JSON.parse(prev))
+      setEstrategias()
     }
-  }, [updateLocal])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <>
       <div className='drawer lg:drawer-open'>

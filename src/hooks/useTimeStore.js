@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { estrategia } from '../utils/estrategias'
 export const useTimeStore = create((set) => ({
   time: [],
-  contador: 0,
+  contador: 1,
   velas: {
     total: 0,
     high: 0,
@@ -11,10 +11,10 @@ export const useTimeStore = create((set) => ({
   },
   estrategias: [],
   setTime: (value) => {
-    set(() => ({ time: value }))
+    set(({ time: value }))
   },
   setContador: (value) => {
-    set(() => ({ contador: value }))
+    set(({ contador: value }))
   },
   setVelas: () => {
     set((state) => ({

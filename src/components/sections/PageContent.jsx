@@ -8,13 +8,15 @@ import { Hero } from '../Hero/Hero'
 
 export function PageContent() {
   const time = useDrop()
+  
+
   return (
     <>
       <main className='h-screen w-full flex flex-col'>
         <Header />
 
-        <div className='grow overflow-y-auto'>
-          {time.length ? (
+        <div className='grow overflow-y-auto' >
+          {time?.length > 0 ? (
             <>
               <Reloj />
               <TimeSection />

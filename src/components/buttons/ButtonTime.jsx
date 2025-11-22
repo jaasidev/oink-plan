@@ -1,21 +1,15 @@
 
 import { useTimeStore } from '../../hooks/useTimeStore'
+import { changeColor } from '../../utils/droptime'
 export function ButtonTime({ index, hours, minutes, bloque, color }) {
   const time = useTimeStore((state) => state.time)
-  const updatEst = useTimeStore(state => state.updatEst)
+  const setTime=useTimeStore((state)=>state.setTime)
   const setVelas = useTimeStore((state) => state.setVelas)
+  const setEstrategias= useTimeStore((state)=>state.setEstrategias)
   const handleClick = () => {
-    if (time[index].color == 'none') {
-      time[index].color = 'high'
-    } else if (time[index].color == 'high') {
-      time[index].color = 'low'
-    } else if (time[index].color == 'low') {
-      time[index].color = 'stage'
-    } else {
-      time[index].color = 'none'
-    }
+    setTime(changeColor(time,index))
     setVelas()
-    updatEst()
+    setEstrategias()
     localStorage.setItem('prev', JSON.stringify(time))
   }
   const borde = bloque  ? 'border border-pink-500' : ''

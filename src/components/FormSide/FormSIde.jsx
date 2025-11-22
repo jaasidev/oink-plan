@@ -4,11 +4,16 @@ import { time } from '../../utils/droptime'
 import { useRef } from 'react'
 export function FormSide() {
   const minRef = useRef(null)
-  const initialice = useTimeStore((state) => state.initialice)
+  const setTime = useTimeStore((state) => state.setTime)
+  const setContador = useTimeStore((state) => state.setContador)
+  const setEstrategias = useTimeStore((state) => state.setEstrategias)
 
   const handlSubmit = (event) => {
     event.preventDefault()
-    initialice(time(minRef.current.value))
+    setTime(time(minRef.current.value))
+    setContador(minRef.current.value)
+    setEstrategias() 
+    localStorage.removeItem('prev')
   }
   return (
     <>
