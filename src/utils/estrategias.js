@@ -126,7 +126,7 @@ export function estrategia(time) {
               if (time[seguimiento + 7]?.color == balance) {
                 tres = 0
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-              } else if (time[seguimiento+7]?.color != 'none') {
+              } else if (time[seguimiento + 7]?.color != 'none') {
                 tres = 0
               }
             }
@@ -841,6 +841,114 @@ export function estrategia(time) {
           tres: 0,
           confiabilidad: 0,
           prediccion: '',
+        }
+      },
+    }, {
+      title: '4 Rojos',
+      description:
+        'Estrategia basada en la tendencia a que las velas en los minutos terminadas en 4 sea roja',
+      estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+
+        const first = time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
+        const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+        let index = first
+        while (index < last) {
+          if (time[index + 4].color == 'low') {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[index + 5].color == 'low') {
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (time[index + 6].color == 'low') {
+            confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+
+          }
+          index += 10
+        }
+
+        if (last + 4 < length - 1) {
+          uno = 100
+          if (time[last + 4].color == 'low') {
+            uno = 0
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[last + 4].color != 'none') {
+            uno = 0
+            dos = 100
+            if (time[last + 5]?.color == 'low') {
+              dos = 0
+              confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+            } else if (time[last + 5]?.color != 'none') {
+              dos = 0
+              tres = 100
+              if (time[last + 6].color == 'low') {
+                confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+                tres = 0
+              } else if (time[last + 6]?.color != 'none') {
+                tres = 0
+              }
+            }
+          }
+        }
+
+
+        return {
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad,
+          prediccion: 'low',
+        }
+      },
+    }, {
+      title: '9 Verdes',
+      description:
+        'Estrategia basada en la tendencia que las velas terminadas en numero 9 sean verdes.',
+      estrategia: () => {
+        let uno = 0, dos = 0, tres = 0, confiabilidad = 0
+
+        const first = time[instancia].minutes % 10 == 0 ? instancia : instancia +10
+        const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+        let index = first
+        while (index < last-10) {
+          if (time[index - 1]?.color == 'high') {
+            confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+          } else if (time[index].color == 'high') {
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (time[index + 1]?.color == 'high') {
+            confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+          }
+          index += 10
+        }
+
+        uno = 100
+        if (time[last -1].color == 'high') {
+          uno = 0
+          confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
+        } else if (time[last -1].color != 'none') {
+          uno = 0
+          dos = 100
+          if (time[last].color == 'high') {
+            dos = 0
+            confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
+          } else if (time[last].color != 'none') {
+            dos = 0
+            tres = 100
+            if (time[last + 1]?.color == 'high') {
+              confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
+              tres = 0
+            } else if (time[last + 1]?.color != 'none') {
+              tres = 0
+            }
+          }
+        }
+
+
+
+        return {
+          uno: uno,
+          dos: dos,
+          tres: tres,
+          confiabilidad: confiabilidad,
+          prediccion: 'high',
         }
       },
     },
