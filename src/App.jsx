@@ -9,7 +9,7 @@ function App() {
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
 
   useEffect(() => {
-    const prev = localStorage.getItem('prev')
+    const prev = sessionStorage.getItem('prev')
     if (prev) {
       console.log(JSON.parse(prev))
       setTime(JSON.parse(prev))

@@ -10,7 +10,7 @@ export function ButtonTime({ index, hours, minutes, bloque, color }) {
     setTime(changeColor(time,index))
     setVelas()
     setEstrategias()
-    localStorage.setItem('prev', JSON.stringify(time))
+    sessionStorage.setItem('prev', JSON.stringify(time))
   }
   const borde = bloque  ? 'border border-pink-500' : ''
   const bg = color == 'high' ? 'btn-success' : color == 'stage' ? 'btn-warning' : color == 'low' ? 'btn-error' : ''

@@ -13,7 +13,7 @@ export function FormSide() {
     setTime(time(minRef.current.value))
     setContador(minRef.current.value)
     setEstrategias() 
-    localStorage.removeItem('prev')
+    sessionStorage.removeItem('prev')
   }
   return (
     <>
