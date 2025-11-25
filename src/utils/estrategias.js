@@ -53,10 +53,10 @@ export function estrategia(time) {
             } else if (time[seguimiento + 6].color != 'none') {
               dos = 0
               tres = 100
-              if (time[seguimiento + 7].color == balance) {
+              if (time[seguimiento + 7]?.color == balance) {
                 tres = 0
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-              } else if (time[seguimiento].color != 'none') {
+              } else if (time[seguimiento + 7]?.color != 'none') {
                 tres = 0
               }
             }
@@ -123,10 +123,10 @@ export function estrategia(time) {
             } else if (time[seguimiento + 6].color != 'none') {
               dos = 0
               tres = 100
-              if (time[seguimiento + 7].color == balance) {
+              if (time[seguimiento + 7]?.color == balance) {
                 tres = 0
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-              } else if (time[seguimiento].color != 'none') {
+              } else if (time[seguimiento+7]?.color != 'none') {
                 tres = 0
               }
             }
@@ -180,17 +180,17 @@ export function estrategia(time) {
             } else if (time[bloque + 3].color !== 'none') {
               uno = 0
               dos = 100
-              if (time[bloque + 2].color == time[bloque + 4].color) {
+              if (time[bloque + 2].color == time[bloque + 4]?.color) {
                 confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
                 dos = 0
-              } else if (time[bloque + 4].color != 'none') {
+              } else if (time[bloque + 4]?.color != 'none') {
                 dos = 0
                 tres = 100
-                if (time[bloque + 2].color == time[bloque + 5].color) {
+                if (time[bloque + 2].color == time[bloque + 5]?.color) {
                   confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                   tres = 0
                 }
-                else if (time[bloque + 5].color != 'none') {
+                else if (time[bloque + 5]?.color != 'none') {
                   tres = 0
                 }
               }
@@ -254,15 +254,15 @@ export function estrategia(time) {
             } else {
               uno = 0
               dos = 100
-              if ((time[ultimo + 1].color != 'none')) {
-                if (balance == time[ultimo + 1].color) {
+              if ((time[ultimo + 1]?.color != 'none')) {
+                if (balance == time[ultimo + 1]?.color) {
                   confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
                   dos = 0
                 } else {
                   dos = 0
                   tres = 100
-                  if (time[ultimo + 2].color != 'none') {
-                    if (balance == time[ultimo + 2].color) {
+                  if (time[ultimo + 2]?.color != 'none') {
+                    if (balance == time[ultimo + 2]?.color) {
                       confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                       tres = 0
                     } else {
@@ -332,15 +332,15 @@ export function estrategia(time) {
             } else {
               uno = 0
               dos = 100
-              if ((time[ultimo + 1].color != 'none')) {
-                if (balance == time[ultimo + 1].color) {
+              if ((time[ultimo + 1]?.color != 'none')) {
+                if (balance == time[ultimo + 1]?.color) {
                   confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
                   dos = 0
                 } else {
                   dos = 0
                   tres = 100
-                  if (time[ultimo + 2].color != 'none') {
-                    if (balance == time[ultimo + 2].color) {
+                  if (time[ultimo + 2]?.color != 'none') {
+                    if (balance == time[ultimo + 2]?.color) {
                       confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                       tres = 0
                     } else {
@@ -470,18 +470,18 @@ export function estrategia(time) {
             if (index + 12 <= length - 1) {
               dos = 100
 
-              if (time[index + 12].color == seguimientoBalance) {
+              if (time[index + 12]?.color == seguimientoBalance) {
                 dos = 0
                 confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
-              } else if (time[index + 12].color != 'none') {
+              } else if (time[index + 12]?.color != 'none') {
                 dos = 0
                 if (index + 17 <= length - 1) {
                   tres = 100
 
-                  if (time[index + 17].color == seguimientoBalance) {
+                  if (time[index + 17]?.color == seguimientoBalance) {
                     tres = 0
                     confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
-                  } else if (time[index + 17].color != 'none') {
+                  } else if (time[index + 17]?.color != 'none') {
                     tres = 0
                   }
                 }
@@ -532,14 +532,14 @@ export function estrategia(time) {
           } else if (time[ultimo + 1].color != 'none') {
             uno = 0
             dos = 100
-            if (time[ultimo].color == time[ultimo + 2].color) {
+            if (time[ultimo].color == time[ultimo + 2]?.color) {
               dos = 0
               confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
             }
-          } else if (time[ultimo + 2].color != 'none') {
+          } else if (time[ultimo + 2]?.color != 'none') {
             dos = 0
             tres = 100
-            if (time[ultimo].color == time[ultimo + 3].color) {
+            if (time[ultimo].color == time[ultimo + 3]?.color) {
               tres = 0
               confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
             }
@@ -602,7 +602,7 @@ export function estrategia(time) {
             } else if (time[seguimiento + 5]?.color != 'none') {
               dos = 0
               tres = 100
-              if (time[seguimiento].color == time[seguimiento + 6].color) {
+              if (time[seguimiento].color == time[seguimiento + 6]?.color) {
                 tres = 0
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
               }
@@ -630,8 +630,6 @@ export function estrategia(time) {
 
         let uno = 0, dos = 0,
           tres = 0
-
-
         let index = instancia
         const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
 
@@ -660,17 +658,17 @@ export function estrategia(time) {
           } else if (time[bloque + 4].color !== 'none') {
             uno = 0
             dos = 100
-            if (time[bloque + 3].color == time[bloque + 5].color) {
+            if (time[bloque + 3].color == time[bloque + 5]?.color) {
               confiabilidad + 3 < 99 ? confiabilidad += 3 : confiabilidad = 99
               dos = 0
-            } else if (time[bloque + 5].color != 'none') {
+            } else if (time[bloque + 5]?.color != 'none') {
               dos = 0
               tres = 100
-              if (time[bloque + 3].color == time[bloque + 6].color) {
+              if (time[bloque + 3].color == time[bloque + 6]?.color) {
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                 tres = 0
               }
-              else if (time[bloque + 6].color != 'none') {
+              else if (time[bloque + 6]?.color != 'none') {
                 tres = 0
               }
             }
@@ -725,7 +723,7 @@ export function estrategia(time) {
         const pendingAlto = pending.filter(value => value.color === 'high').length
         const pendingBajo = pending.filter(value => value.color === 'low').length
         const balance = pendingAlto < pendingBajo ? 'high' : pendingAlto == pendingBajo ? '' : 'low'
-        if (index + 5 <= length - 1) {
+        if (ultimo + 5 <= length - 1) {
           if (balance !== '' && ultimo + 4 <= length - 1) {
             uno = 100
 
@@ -744,7 +742,7 @@ export function estrategia(time) {
                     dos = 0
                     tres = 100
                     if (time[ultimo + 5].color != 'none') {
-                      if (balance == time[ultimo + 6].color) {
+                      if (balance == time[ultimo + 6]?.color) {
                         confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
                         tres = 0
                       } else {
@@ -811,7 +809,7 @@ export function estrategia(time) {
             } else if (time[ultimo + 3].color != 'none') {
               dos = 0
               tres = 100
-              if (time[ultimo].color == time[ultimo + 4].color) {
+              if (time[ultimo].color == time[ultimo + 4]?.color) {
                 confiabilidad + 1 < 99 ? confiabilidad += 1 : confiabilidad = 99
               }
             }
@@ -842,7 +840,7 @@ export function estrategia(time) {
           dos: 0,
           tres: 0,
           confiabilidad: 0,
-           prediccion: '',
+          prediccion: '',
         }
       },
     },
