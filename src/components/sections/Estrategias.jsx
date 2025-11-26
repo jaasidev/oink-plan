@@ -12,7 +12,7 @@ export function Estrategias() {
         {
           estrategias.sort((a, b) => b.estrategia(time).confiabilidad - a.estrategia(time).confiabilidad).map((value, index) => {
             return (
-              <CardEstrategia description={value.description} name={value.title} key={index} velaUno={value.estrategia(time).uno} velaDos={value.estrategia(time).dos} velaTres={value.estrategia(time).tres} confiabilidad={value.estrategia(time).confiabilidad} prediccion={value.estrategia(time).prediccion} />
+              <CardEstrategia description={value.description} name={value.title} key={index} metodo={value.estrategia(time)} />
             )
           })
         }
