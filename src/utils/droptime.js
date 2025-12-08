@@ -1,3 +1,11 @@
+function isBloque(date, multiplicador, i = 0, condicion) {
+  if (multiplicador === 1) return (date - i * multiplicador) % 5 == 0 ? true : false
+  else {
+    return condicion % 5 == 0 ? true : false
+  }
+}
+
+
 export function time(multiplicador) {
   const date = new Date()
   const array = []
@@ -8,7 +16,7 @@ export function time(multiplicador) {
           hours: (String(date.getHours() - j).padStart(2, '0')) >= 0 ? (String(date.getHours() - j).padStart(2, '0')) : (String(date.getHours() - j + 24).padStart(2, '0')),
           minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
           color: 'none',
-          bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
+          bloque: isBloque(date.getMinutes(), multiplicador, i, array.length)
         })
       } else {
         array.unshift({
@@ -17,7 +25,7 @@ export function time(multiplicador) {
             60 + date.getMinutes() - i * multiplicador
           ).padStart(2, '0'),
           color: 'none',
-          bloque: (date.getMinutes() - i * multiplicador) % 5 == 0 ? true : false
+          bloque: isBloque(date.getMinutes(), multiplicador, i, array.length)
         })
       }
     }
@@ -25,10 +33,11 @@ export function time(multiplicador) {
   return array
 }
 
-export function addDate(array) {
+export function addDate(array, multiplicador) {
   if (array.length > 0) {
     const newArray = [...array]
     const date = new Date()
+    const lastBloque = newArray.findLastIndex(value => value.bloque == true)
     newArray.push({
       hours: String(date.getHours()).padStart(2, '0'),
       minutes: String(
@@ -36,7 +45,7 @@ export function addDate(array) {
       ).padStart(2, '0'),
       color: 'none',
       disable: 'disabled',
-      bloque: date.getMinutes() % 5 == 0 ? true : false
+      bloque: isBloque(date.getMinutes(), multiplicador, newArray.length - 1 - lastBloque)
     })
     newArray.shift()
     sessionStorage.setItem('prev', JSON.stringify(newArray))

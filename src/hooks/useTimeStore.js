@@ -27,6 +27,6 @@ export const useTimeStore = create((set) => ({
     }))
   },
   setEstrategias: () => {
-    set((state) => ({ estrategias: estrategia(state.time) }))
+    set((state) => ({ estrategias: estrategia(state.time, state.contador) }))
   }
 }))

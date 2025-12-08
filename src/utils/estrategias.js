@@ -1,4 +1,4 @@
-export function estrategia(time) {
+export function estrategia(time, contador) {
   const instancia = time.findIndex((value) => value.bloque == true)
   const ultimo = time.findLastIndex((value) => value.bloque == true)
   const { length } = time
@@ -7,6 +7,7 @@ export function estrategia(time) {
       title: 'MHI (Minoría)',
       description:
         'En un cuadrante, considera el color minoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let confiabilidad = 0
 
@@ -78,6 +79,7 @@ export function estrategia(time) {
       title: 'MHI (Mayoría)',
       description:
         'En un cuadrante, considera el color mayoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let confiabilidad = 0
 
@@ -146,6 +148,7 @@ export function estrategia(time) {
       title: 'Los 3 Mosqueteros',
       description:
         'Considera el color de la vela 3. Apuesta al mismo color en la vela 4. Gale 1 en la vela 5 y Gale 2 en la vela 6, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let confiabilidad = 0
 
@@ -215,6 +218,7 @@ export function estrategia(time) {
       title: 'Millon Mayoría',
       description:
         'Considera el color mayoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let confiabilidad = 0, uno = 0, dos = 0, tres = 0
 
@@ -291,6 +295,7 @@ export function estrategia(time) {
       title: 'Millon Minoría',
       description:
         'Considera el color minoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
 
 
@@ -369,6 +374,7 @@ export function estrategia(time) {
       title: 'Patrón Impar',
       description:
         'Si las velas 1 y 3 son del mismo color, apuesta a ese color en la vela 5. Gale 1 en la vela 7 y Gale 2 en la vela 9, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
         let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
@@ -430,6 +436,7 @@ export function estrategia(time) {
       title: 'Mejor de 3Multi-Bloque',
       description:
         'Considera la mayoría de las velas 3, 4 y 5. Apuesta a ese color en la vela 3 del SIGUIENTE cuadrante. Gales en la vela 3 de los cuadrantes subsiguientes.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
         let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
@@ -504,6 +511,7 @@ export function estrategia(time) {
       title: 'Padrón 23',
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 2. Gale 1 en la vela 3 y Gale 2 en la vela 4, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
         let index = instancia
@@ -564,6 +572,7 @@ export function estrategia(time) {
       title: 'Torres Gemelas',
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
         let index = time.findIndex((value) => value.bloque == true && value.minutes % 10 == 0)
@@ -624,6 +633,7 @@ export function estrategia(time) {
       title: '3 Vecinos',
       description:
         'Considera el color de la vela 4. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
 
         let confiabilidad = 0
@@ -693,6 +703,7 @@ export function estrategia(time) {
       title: '3x1',
       description:
         'Considera el color minoritario de las velas 1, 2 y 3. Apuesta a ese color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
 
@@ -771,6 +782,7 @@ export function estrategia(time) {
       title: '2 Iguales y Continuación',
       description:
         'Si las velas 1 y 2 son del mismo color, apuesta a ese mismo color en la vela 3. Gales en las velas 4 y 5, siguiendo el mismo color.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
 
@@ -832,6 +844,7 @@ export function estrategia(time) {
       title: 'Confluencia Triple',
       description:
         'Genera una señal en la vela 5 solo si las estrategias "Torres Gemelas", "3 Vecinos" y "3x1" predicen el mismo color. Una estrategia de alta confluencia..',
+      minutos: 1,
       estrategia: () => {
 
 
@@ -847,6 +860,7 @@ export function estrategia(time) {
       title: '4 Rojos',
       description:
         'Estrategia basada en la tendencia a que las velas en los minutos terminadas en 4 sea roja',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
 
@@ -902,13 +916,14 @@ export function estrategia(time) {
       title: '9 Verdes',
       description:
         'Estrategia basada en la tendencia que las velas terminadas en numero 9 sean verdes.',
+      minutos: 1,
       estrategia: () => {
         let uno = 0, dos = 0, tres = 0, confiabilidad = 0
 
-        const first = time[instancia].minutes % 10 == 0 ? instancia : instancia +10
+        const first = time[instancia].minutes % 10 == 0 ? instancia : instancia + 10
         const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
         let index = first
-        while (index < last-10) {
+        while (index < last - 10) {
           if (time[index - 1]?.color == 'high') {
             confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
           } else if (time[index].color == 'high') {
@@ -920,10 +935,10 @@ export function estrategia(time) {
         }
 
         uno = 100
-        if (time[last -1].color == 'high') {
+        if (time[last - 1].color == 'high') {
           uno = 0
           confiabilidad + 5 < 99 ? confiabilidad += 5 : confiabilidad = 99
-        } else if (time[last -1].color != 'none') {
+        } else if (time[last - 1].color != 'none') {
           uno = 0
           dos = 100
           if (time[last].color == 'high') {
@@ -952,6 +967,6 @@ export function estrategia(time) {
         }
       },
     },
-  ]
+  ].filter(value=> value.minutos===contador)
 
 }

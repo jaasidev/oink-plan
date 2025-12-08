@@ -6,13 +6,14 @@ import { useEffect } from 'react'
 
 function App() {
   const setTime = useTimeStore((state) => state.setTime)
+  const setContador = useTimeStore((state) => state.setContador)
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
 
   useEffect(() => {
     const prev = sessionStorage.getItem('prev')
     if (prev) {
-      console.log(JSON.parse(prev))
       setTime(JSON.parse(prev))
+      setContador(sessionStorage.getItem('contador'))
       setEstrategias()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

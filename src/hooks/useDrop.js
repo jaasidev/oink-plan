@@ -14,7 +14,7 @@ export function useDrop() {
 
     }
     const intervalId = contador != 0 ? setInterval(() => {
-      setTime(addDate(time))
+      setTime(addDate(time, contador))
       setEstrategias()
     }, contador * 60000 - resta) : ''
 
