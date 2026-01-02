@@ -4,11 +4,9 @@ import { changeColor } from '../../utils/droptime'
 export function ButtonTime({ index, hours, minutes, bloque, color }) {
   const time = useTimeStore((state) => state.time)
   const setTime=useTimeStore((state)=>state.setTime)
-  const setVelas = useTimeStore((state) => state.setVelas)
   const setEstrategias= useTimeStore((state)=>state.setEstrategias)
   const handleClick = () => {
     setTime(changeColor(time,index))
-    setVelas()
     setEstrategias()
     sessionStorage.setItem('prev', JSON.stringify(time))
   }

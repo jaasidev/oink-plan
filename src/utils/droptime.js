@@ -5,6 +5,10 @@ function isBloque(date, multiplicador, i = 0, condicion) {
   }
 }
 
+function formatDateString(date) {
+  return String(date).padStart(2, '0')
+}
+
 
 export function time(multiplicador) {
   const date = new Date()
@@ -13,17 +17,15 @@ export function time(multiplicador) {
     for (let i = 0; i < 60 / multiplicador; i++) {
       if (date.getMinutes() >= i * multiplicador) {
         array.unshift({
-          hours: (String(date.getHours() - j).padStart(2, '0')) >= 0 ? (String(date.getHours() - j).padStart(2, '0')) : (String(date.getHours() - j + 24).padStart(2, '0')),
-          minutes: String(date.getMinutes() - i * multiplicador).padStart(2, '0'),
+          hours: formatDateString(date.getHours() - j) >= 0 ? (formatDateString(date.getHours() - j)) : (formatDateString(date.getHours() - j + 24)),
+          minutes: formatDateString(date.getMinutes() - i * multiplicador),
           color: 'none',
           bloque: isBloque(date.getMinutes(), multiplicador, i, array.length)
         })
       } else {
         array.unshift({
-          hours: (String(date.getHours() - j - 1).padStart(2, '0')) >= 0 ? String(date.getHours() - j - 1).padStart(2, '0') : String(date.getHours() + 24 - j - 1).padStart(2, '0'),
-          minutes: String(
-            60 + date.getMinutes() - i * multiplicador
-          ).padStart(2, '0'),
+          hours: formatDateString(date.getHours() - j - 1) >= 0 ? formatDateString(date.getHours() - j - 1) : formatDateString(date.getHours() + 23 - j),
+          minutes: formatDateString(60 + date.getMinutes() - i * multiplicador),
           color: 'none',
           bloque: isBloque(date.getMinutes(), multiplicador, i, array.length)
         })
@@ -39,10 +41,8 @@ export function addDate(array, multiplicador) {
     const date = new Date()
     const lastBloque = newArray.findLastIndex(value => value.bloque == true)
     newArray.push({
-      hours: String(date.getHours()).padStart(2, '0'),
-      minutes: String(
-        date.getMinutes()
-      ).padStart(2, '0'),
+      hours: formatDateString(date.getHours()),
+      minutes: formatDateString(date.getMinutes()),
       color: 'none',
       disable: 'disabled',
       bloque: isBloque(date.getMinutes(), multiplicador, newArray.length - 1 - lastBloque)

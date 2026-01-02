@@ -20,8 +20,17 @@ export function FormSide() {
     <>
       <li className='menu-title px-0 mt-7'>
         <form className='flex flex-col gap-3' onSubmit={handlSubmit}>
-          <select id="time" required defaultValue='Elige el rango de tiempo' ref={minRef} title='Debe elegir una opción' className='select select-secondary validator text-base-content'>
-            <option value='Elige el rango de tiempo' disabled>--Elige el rango de tiempo--</option>
+          <select
+            id='time'
+            required
+            defaultValue='Elige el rango de tiempo'
+            ref={minRef}
+            title='Debe elegir una opción'
+            className='select select-secondary validator text-base-content'
+          >
+            <option value='Elige el rango de tiempo' disabled>
+              --Elige el rango de tiempo--
+            </option>
             <option value='01'>1 Minuto</option>
             <option value='05'>5 Minutos</option>
             <option value='10'>10 Minutos</option>
@@ -30,7 +39,8 @@ export function FormSide() {
           <select
             defaultValue='Elige monedas'
             className='select select-secondary text-base-content'
-            required>
+            required
+          >
             <option value='Elige monedas' disabled>
               --Elige tu cambio de moneda--
             </option>
