@@ -224,20 +224,7 @@ export function estrategia(time, contador) {
         while (index + 20 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
           const balance = calcularBalance(trozo)
-
-          if (balance == time[index + 7].color) {
-            c = Math.min(c + 5, 99)
-          } else if (
-            balance == time[index + 12].color &&
-            time[index + 7].color != 'none'
-          ) {
-            c = Math.min(c + 3, 99)
-          } else if (
-            balance == time[index + 17].color &&
-            time[index + 13].color !== 'none'
-          ) {
-            c = Math.min(c + 1, 99)
-          }
+          c = procesarGalesAnt(time, index+7, balance, c, 4, 8)
           index += 10
         }
 
