@@ -11,7 +11,9 @@ export function procesarGales(
   condicionAdicional,
   index,
   prediccion,
-  confiabilidad
+  confiabilidad,
+  modifyUno=0,
+  modifyDos=0
 ) {
   let uno = 0,
     dos = 0,
@@ -25,16 +27,16 @@ export function procesarGales(
     } else if (time[index].color !== 'none') {
       uno = 0
       dos = 100
-      if (time[index + 1]?.color === prediccion) {
+      if (time[index + 1 + modifyUno]?.color === prediccion) {
         dos = 0
         confiabilidad = Math.min(confiabilidad + 3, 99)
-      } else if (time[index + 1]?.color !== 'none') {
+      } else if (time[index + 1 + modifyUno]?.color !== 'none') {
         dos = 0
         tres = 100
-        if (time[index + 2]?.color === prediccion) {
+        if (time[index + 2 + modifyDos]?.color === prediccion) {
           tres = 0
           confiabilidad = Math.min(confiabilidad + 1, 99)
-        } else if (time[index + 2]?.color !== 'none') {
+        } else if (time[index + 2 + modifyDos]?.color !== 'none') {
           tres = 0
         }
       }
@@ -44,19 +46,19 @@ export function procesarGales(
   return { uno, dos, tres, confiabilidad }
 }
 
-export function procesarGalesAnt(time, index, prediccion, confiabilidad) {
+export function procesarGalesAnt(time, index, prediccion, confiabilidad, modifyUno = 0, modifyDos = 0) {
   if (prediccion != 'none') {
     if (time[index].color == prediccion) {
       confiabilidad = Math.min(confiabilidad + 5, 99)
     } else if (
       time[index].color != 'none' &&
-      time[index + 1].color == prediccion
+      time[index + 1 + modifyUno].color == prediccion
     ) {
       confiabilidad = Math.min(confiabilidad + 3, 99)
     } else if (
       time[index].color != 'none' &&
-      time[index + 1].color != 'none' &&
-      time[index + 2].color == prediccion
+      time[index + 1 + modifyUno].color != 'none' &&
+      time[index + 2 + modifyDos].color == prediccion
     ) {
       confiabilidad = Math.min(confiabilidad + 1, 99)
     }
