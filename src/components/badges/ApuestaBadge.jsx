@@ -1,10 +1,7 @@
-export function ApuestaBadge({prediccion}){
-    const badge= prediccion=='high'?'badge-success':prediccion=='low'?'badge-error':'badge-info'
-    const texto= prediccion=='high'?'Verde':prediccion=='low'?'Roja':'Ninguna'
-    return(
-        <div className="flex items-center gap-3">
-            <span className="w-min">Apuesta:</span>
-            <div className={`badge badge-outline ${badge}`}>{texto}</div>
-        </div>
+export function ApuestaBadge({ prediccion, active, texto }) {
+    const bg = (prediccion === 'high' && active === 100) ? 'badge-success  badge-soft' : (prediccion === 'low' && active === 100) ? 'badge-error badge-soft' : 'text-gray-400 badge-dash  dark:text-gray-700'
+
+    return (
+        <div className={`badge  ${bg}`}>{texto}</div>
     )
 }

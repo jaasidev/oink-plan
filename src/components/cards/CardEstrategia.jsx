@@ -4,43 +4,24 @@ export function CardEstrategia({ name, description, metodo }) {
 
     const { uno, dos, tres, confiabilidad, prediccion } = metodo
 
-    let color
-
-    if (confiabilidad > 75) {
-        color = 'success'
-    } else if (confiabilidad < 75 && confiabilidad > 50) {
-        color = 'warning'
-    } else {
-        color = 'error'
-    }
     return (
-        <div className="card w-96 max-w-full bg-base-100 card-lg border-secondary border">
+        <div className="card w-full bg-base-100 card-lg border-secondary border">
             <div className="card-body">
-                <h2 className="card-title">{name}</h2>
-                <p>{description}</p>
-                <ApuestaBadge prediccion={prediccion} />
 
-                <div className="mt-5 w-full">
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Confiabilidad:</legend>
-                        <progress className="progress progress-primary w-full" value={confiabilidad} max="100"></progress>
-                        <p className={`justify-end label text-${color}`}>{confiabilidad}%</p>
-                    </fieldset>
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Probabilidad Apertura:</legend>
-                        <progress className="progress progress-primary w-full" value={uno} max="100"></progress>
-                        <p className={`justify-end label text-${color}`}>{uno}%</p>
-                    </fieldset>
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Probabilidad 1 Vela:</legend>
-                        <progress className="progress progress-secondary w-full" value={dos} max="100"></progress>
-                        <p className={`justify-end label text-${color}`}>{dos}%</p>
-                    </fieldset>
-                    <fieldset className="fieldset">
-                        <legend className="fieldset-legend">Probabilidad 2 Vela:</legend>
-                        <progress className="progress progress-accent w-full" value={tres} max="100"></progress>
-                        <p className={`justify-end label text-${color}`}>{tres}%</p>
-                    </fieldset>
+                <h2 className="card-title">{name}</h2>
+                <div className="flex gap-2 items-center mt-2">
+                    <ApuestaBadge active={uno} prediccion={prediccion} texto="Apertura" />
+                    <ApuestaBadge active={dos} prediccion={prediccion} texto="1 Gale" />
+                    <ApuestaBadge active={tres} prediccion={prediccion} texto="2 Gale" />
+                </div>
+                <p>{description}</p>
+
+                <div className="mt-3">
+                    <div className="flex justify-between items-center">
+                        <h3 className="font-semibold">Confiabilidad:</h3>
+                        <span>{confiabilidad}%</span>
+                    </div>
+                    <progress class="progress progress-primary w-ful" value={confiabilidad} max="100"></progress>
                 </div>
             </div>
         </div>
