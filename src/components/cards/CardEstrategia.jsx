@@ -21,7 +21,7 @@ export function CardEstrategia({ name, description, metodo }) {
                         <h3 className="font-semibold">Confiabilidad:</h3>
                         <span>{confiabilidad}%</span>
                     </div>
-                    <progress class="progress progress-primary w-ful" value={confiabilidad} max="100"></progress>
+                    <progress className="progress progress-primary w-ful" value={confiabilidad} max="100"></progress>
                 </div>
             </div>
         </div>

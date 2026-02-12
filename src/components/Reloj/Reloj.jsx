@@ -3,7 +3,7 @@ import { useTime } from '../../hooks/useTime'
 export function Reloj({ counter }) {
   const { hours, minutes, seconds } = useTime()
   return (
-    <div className='flex justify-center items-center lg:text-8xl text-6xl mt-7'>
+    <div className='flex justify-center items-center lg:text-8xl text-6xl mt-10'>
       <span className='countdown font-mono'>
         <span
           style={{ '--value': `${hours}` }}

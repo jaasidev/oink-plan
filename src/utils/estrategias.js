@@ -5,6 +5,7 @@ export function estrategia(time, contador) {
   const primerDiez = time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
   const ultimoDiez = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
   const { length } = time
+  
   return [
     {
       title: 'MHI (Minoría)',

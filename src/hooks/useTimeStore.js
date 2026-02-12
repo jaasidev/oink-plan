@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { estrategia } from '../utils/estrategias'
+import {estrategia} from '../utils/estrategias'
 export const useTimeStore = create((set) => ({
   time: [],
   contador: 1,
@@ -12,5 +12,8 @@ export const useTimeStore = create((set) => ({
   },
   setEstrategias: () => {
     set((state) => ({ estrategias: estrategia(state.time, state.contador) }))
+  },
+  resetEstrategias:()=>{
+    set(()=>({estrategia:[]}))
   }
 }))
