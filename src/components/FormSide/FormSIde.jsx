@@ -12,8 +12,8 @@ export function FormSide() {
 
   const handlSubmit = (event) => {
     event.preventDefault()
-    setTime(time(parseInt(minRef.current.value)))
-    setContador(parseInt(minRef.current.value))
+    setTime(time(Number.parseInt(minRef.current.value)))
+    setContador(Number.parseInt(minRef.current.value))
     setEstrategias()
     sessionStorage.removeItem('prev')
     sessionStorage.setItem('contador', minRef.current.value)
@@ -50,7 +50,7 @@ export function FormSide() {
             defaultValue=''
             className='select select-secondary text-base-content validator'
             required
-            title='Debe elegit una opción'
+            title='Debe elegir una opción'
             id='moneda'
             ref={monedaRef}
           >
@@ -90,9 +90,9 @@ export function FormSide() {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="M4 7l16 0" />
             <path d="M10 11l0 6" />

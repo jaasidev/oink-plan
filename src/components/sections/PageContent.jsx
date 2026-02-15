@@ -10,25 +10,21 @@ export function PageContent() {
   const { time } = useDrop()
 
   return (
-    <>
-      <main className='h-screen w-full flex flex-col'>
-        <Header />
+    <main className='h-screen w-full flex flex-col'>
+      <Header />
 
-        <div className='grow overflow-y-auto'>
-          {time?.length > 0 ? (
-            <>
-              <Reloj />
-              <TimeSection />
-              <Estrategias />
-            </>
-          ) : (
-            <>
-              <Hero />
-            </>
-          )}
-        </div>
-        <Footer counter='Reloj' />
-      </main>
-    </>
+      <div className='grow overflow-y-auto'>
+        {time?.length > 0 ? (
+          <>
+            <Reloj />
+            <TimeSection />
+            <Estrategias />
+          </>
+        ) : (
+          <Hero />
+        )}
+      </div>
+      <Footer counter='Reloj' />
+    </main>
   )
 }
