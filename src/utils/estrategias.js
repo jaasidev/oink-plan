@@ -2,10 +2,8 @@ import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
 export function estrategia(time, contador) {
   const instancia = time.findIndex((value) => value.bloque == true)
   const ultimo = time.findLastIndex((value) => value.bloque == true)
-  const primerDiez = time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
-  const ultimoDiez = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
   const { length } = time
-  
+
   return [
     {
       title: 'MHI (Minoría)',
@@ -14,7 +12,7 @@ export function estrategia(time, contador) {
       minutos: 1,
       estrategia: () => {
         let c = 0
-        let index = primerDiez
+        let index = instancia
         while (index + 9 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
           const balance = calcularBalance(trozo, true)
@@ -23,16 +21,14 @@ export function estrategia(time, contador) {
           index += 10
         }
 
-
-
-        let trozo = time.slice(ultimoDiez, ultimoDiez + 5)
+        let trozo = time.slice(index, index + 5)
 
         const balance = calcularBalance(trozo, true)
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez + 5 < length - 1 && balance != '',
-          ultimoDiez + 5,
+          index + 5 < length - 1 && balance != '',
+          index + 5,
           balance,
           c
         )
@@ -48,7 +44,7 @@ export function estrategia(time, contador) {
       minutos: 1,
       estrategia: () => {
         let c = 0
-        let index = primerDiez
+        let index = instancia
         while (index + 9 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
 
@@ -57,13 +53,13 @@ export function estrategia(time, contador) {
           index += 10
         }
 
-        let trozo = time.slice(ultimoDiez, ultimoDiez + 5)
+        let trozo = time.slice(index, index + 5)
 
         const balance = calcularBalance(trozo)
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez + 5 < length - 1 && balance != '',
-          ultimoDiez + 5,
+          index + 5 < length - 1 && balance != '',
+          index + 5,
           balance,
           c
         )
@@ -180,7 +176,7 @@ export function estrategia(time, contador) {
       minutos: 1,
       estrategia: () => {
         let c = 0
-        let index = primerDiez
+        let index = instancia
 
         while (index + 9 < ultimo) {
           if (
@@ -193,14 +189,14 @@ export function estrategia(time, contador) {
         }
 
 
-        const prediccion = time[ultimoDiez].color
+        const prediccion = time[index].color
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez + 4 < length - 1 &&
-          time[ultimoDiez].color == time[ultimoDiez + 2].color &&
+          index + 4 < length - 1 &&
+          time[index].color == time[index + 2].color &&
           prediccion !== 'none',
-          ultimoDiez + 4,
+          index + 4,
           prediccion,
           c,
           1, 2
@@ -219,7 +215,7 @@ export function estrategia(time, contador) {
       minutos: 1,
       estrategia: () => {
         let c = 0
-        let index = primerDiez
+        let index = instancia
 
         while (index + 20 < ultimo) {
           let trozo = time.slice(index + 2, index + 5)
@@ -282,7 +278,7 @@ export function estrategia(time, contador) {
       minutos: 1,
       estrategia: () => {
         let c = 0
-        let index = primerDiez
+        let index = instancia
 
         while (index + 9 < ultimo) {
           if (time[index].color !== 'none') {
@@ -295,15 +291,15 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez + 4 < length - 1 && time[ultimoDiez].color !== 'none',
-          ultimoDiez + 4,
-          time[ultimoDiez].color,
+          index + 4 < length - 1 && time[index].color !== 'none',
+          index + 4,
+          time[index].color,
           c
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[ultimoDiez].color,
+          uno, dos, tres, confiabilidad: c, prediccion: time[index].color,
         }
       },
     },
@@ -431,17 +427,17 @@ export function estrategia(time, contador) {
       estrategia: () => {
         let c = 0
 
-        let index = primerDiez
+        let index = instancia
 
-        while (index < ultimoDiez) {
+        while (index < index) {
           c = procesarGalesAnt(time, index + 4, 'low', c)
           index += 10
         }
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez + 4 < length - 1,
-          ultimoDiez + 4,
+          index + 4 < length - 1,
+          index + 4,
           'low',
           c
         )
@@ -458,17 +454,17 @@ export function estrategia(time, contador) {
       estrategia: () => {
         let c = 0
 
-        let index = primerDiez == 0 ? primerDiez + 10 : primerDiez
+        let index = instancia + 10
 
-        while (index < ultimoDiez - 10) {
+        while (index + 9 < ultimo) {
           c = procesarGalesAnt(time, index - 1, 'high', c)
           index += 10
         }
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          ultimoDiez - 1 < length - 1,
-          ultimoDiez - 1,
+          index - 1 < length - 1,
+          index - 1,
           'high',
           c
         )

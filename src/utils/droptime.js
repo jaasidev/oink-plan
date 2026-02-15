@@ -1,3 +1,4 @@
+const date = new Date()
 function isBloque(value) {
   return value % 5 == 0
 }
@@ -22,7 +23,7 @@ const objetoTime = (horaBase, horaDos, minutes, vela) => {
 }
 
 export function time(multiplicador) {
-  const date = new Date()
+
   const array = []
   let vela = 1
   for (let j = 0; j < 6; j++) {
@@ -46,7 +47,6 @@ export function time(multiplicador) {
 export function addDate(array, multiplicador) {
   if (array.length > 0) {
     const newArray = [...array]
-    const date = new Date()
     const lastBloque = newArray.findLastIndex((value) => value.bloque == true)
     newArray.push(
       objetoBase(date.getHours(), date.getMinutes(), newArray.length - lastBloque)
