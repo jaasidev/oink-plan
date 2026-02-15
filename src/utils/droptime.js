@@ -47,7 +47,7 @@ export function time(multiplicador) {
 export function addDate(array, multiplicador) {
   if (array.length > 0) {
     const newArray = [...array]
-    const lastBloque = newArray.findLastIndex((value) => value.bloque == true)
+    const lastBloque = newArray.findLastIndex((value) => value.bloque)
     newArray.push(
       objetoBase(date.getHours(), date.getMinutes(), newArray.length - lastBloque)
     )

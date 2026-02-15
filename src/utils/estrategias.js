@@ -1,7 +1,7 @@
 import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
 export function estrategia(time, contador) {
-  const instancia = time.findIndex((value) => value.bloque == true)
-  const ultimo = time.findLastIndex((value) => value.bloque == true)
+  const instancia = time.findIndex((value) => value.bloque)
+  const ultimo = time.findLastIndex((value) => value.bloque)
   const { length } = time
 
   return [
@@ -429,7 +429,7 @@ export function estrategia(time, contador) {
 
         let index = instancia
 
-        while (index < index) {
+        while (index < ultimo) {
           c = procesarGalesAnt(time, index + 4, 'low', c)
           index += 10
         }
