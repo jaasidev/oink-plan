@@ -10,7 +10,7 @@ export function estrategia(time, contador) {
       title: 'MHI (Minoría)',
       description:
         'En un cuadrante, considera el color minoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: [1],
+      minutos: [1, 5],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -43,7 +43,7 @@ export function estrategia(time, contador) {
       title: 'MHI (Mayoría)',
       description:
         'En un cuadrante, considera el color mayoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: [1],
+      minutos: [1, 5],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -111,7 +111,7 @@ export function estrategia(time, contador) {
       title: 'Millon Mayoría',
       description:
         'Considera el color mayoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: [1],
+      minutos: [1, 5],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -145,7 +145,7 @@ export function estrategia(time, contador) {
       title: 'Millon Minoría',
       description:
         'Considera el color minoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: [1],
+      minutos: [1, 5],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -284,7 +284,7 @@ export function estrategia(time, contador) {
       title: 'Torres Gemelas',
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
-      minutos: [1],
+      minutos: [1, 5],
       estrategia: () => {
         let c = 0
         let index = instancia

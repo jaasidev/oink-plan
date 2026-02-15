@@ -43,7 +43,6 @@ export function FormSide() {
             </option>
             <option value='01'>1 Minuto</option>
             <option value='05'>5 Minutos</option>
-            <option value='10'>10 Minutos</option>
             <option value='15'>15 Minutos</option>
           </select>
           <select
