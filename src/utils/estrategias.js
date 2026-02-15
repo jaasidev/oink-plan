@@ -6,10 +6,11 @@ export function estrategia(time, contador) {
 
   return [
     {
+      id: 84721,
       title: 'MHI (Minoría)',
       description:
         'En un cuadrante, considera el color minoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -38,10 +39,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 39156,
       title: 'MHI (Mayoría)',
       description:
         'En un cuadrante, considera el color mayoritario de las velas 3, 4 y 5. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -71,10 +73,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 52483,
       title: 'Los 3 Mosqueteros',
       description:
         'Considera el color de la vela 3. Apuesta al mismo color en la vela 4. Gale 1 en la vela 5 y Gale 2 en la vela 6, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -104,10 +107,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 67934,
       title: 'Millon Mayoría',
       description:
         'Considera el color mayoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -137,10 +141,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 21578,
       title: 'Millon Minoría',
       description:
         'Considera el color minoritario de las primeras 5 velas. Apuesta a ese color en la vela 6. Gale 1 en la vela 7 y Gale 2 en la vela 8, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -170,10 +175,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 93647,
       title: 'Patrón Impar',
       description:
         'Si las velas 1 y 3 son del mismo color, apuesta a ese color en la vela 5. Gale 1 en la vela 7 y Gale 2 en la vela 9, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -209,10 +215,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 48265,
       title: 'Mejor de 3Multi-Bloque',
       description:
         'Considera la mayoría de las velas 3, 4 y 5. Apuesta a ese color en la vela 3 del SIGUIENTE cuadrante. Gales en la vela 3 de los cuadrantes subsiguientes.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -242,10 +249,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 75319,
       title: 'Padrón 23',
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 2. Gale 1 en la vela 3 y Gale 2 en la vela 4, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -272,10 +280,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 16842,
       title: 'Torres Gemelas',
       description:
         'Considera el color de la vela 1. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -304,10 +313,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 59473,
       title: '3 Vecinos',
       description:
         'Considera el color de la vela 4. Apuesta al mismo color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -335,10 +345,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 82156,
       title: '3x1',
       description:
         'Considera el color minoritario de las velas 1, 2 y 3. Apuesta a ese color en la vela 5. Gale 1 en la vela 6 y Gale 2 en la vela 7, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -370,10 +381,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 34697,
       title: '2 Iguales y Continuación',
       description:
         'Si las velas 1 y 2 son del mismo color, apuesta a ese mismo color en la vela 3. Gales en las velas 4 y 5, siguiendo el mismo color.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
         let index = instancia
@@ -405,10 +417,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 71528,
       title: 'Confluencia Triple',
       description:
         'Genera una señal en la vela 5 solo si las estrategias "Torres Gemelas", "3 Vecinos" y "3x1" predicen el mismo color. Una estrategia de alta confluencia..',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         return {
           uno: 0,
@@ -420,10 +433,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 46983,
       title: '4 Rojos',
       description:
         'Estrategia basada en la tendencia a que las velas en los minutos terminadas en 4 sea roja',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
 
@@ -447,10 +461,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 28314,
       title: '9 Verdes',
       description:
         'Estrategia basada en la tendencia que las velas terminadas en numero 9 sean verdes.',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
 
@@ -476,10 +491,11 @@ export function estrategia(time, contador) {
       },
     },
     {
+      id: 65749,
       title: 'Seven Flip',
       description:
         'La vela numero 7 y la vela numero 8 van a tener el mismo color, gale en vela 9 y vela 10',
-      minutos: 1,
+      minutos: [1],
       estrategia: () => {
         let c = 0
 
@@ -509,5 +525,5 @@ export function estrategia(time, contador) {
         }
       },
     },
-  ].filter((value) => value.minutos === contador)
+  ].filter((value) => value.minutos.includes(contador))
 }
