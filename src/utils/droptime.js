@@ -1,41 +1,43 @@
-function isBloque(date, multiplicador, i = 0, condicion) {
-  if (multiplicador === 1)
-    return (date - i * multiplicador) % 5 == 0 ? true : false
-  else {
-    return condicion % 5 == 0 ? true : false
-  }
+function isBloque(value) {
+  return value % 5 == 0
 }
 
 function formatDateString(date) {
   return String(date).padStart(2, '0')
 }
 
+const objetoBase = (hour, minutes, vela) => {
+  return {
+    hours: formatDateString(hour),
+    minutes: formatDateString(minutes),
+    bloque: isBloque(vela),
+    color: 'none'
+  }
+}
+
+const objetoTime = (horaBase, horaDos, minutes, vela) => {
+  if (horaBase >= 0) return objetoBase(horaBase, minutes, vela)
+
+  return objetoBase(horaDos, minutes, vela)
+}
+
 export function time(multiplicador) {
   const date = new Date()
   const array = []
+  let vela = 1
   for (let j = 0; j < 6; j++) {
     for (let i = 0; i < 60 / multiplicador; i++) {
       if (date.getMinutes() >= i * multiplicador) {
-        array.unshift({
-          hours:
-            formatDateString(date.getHours() - j) >= 0
-              ? formatDateString(date.getHours() - j)
-              : formatDateString(date.getHours() - j + 24),
-          minutes: formatDateString(date.getMinutes() - i * multiplicador),
-          color: 'none',
-          bloque: isBloque(date.getMinutes(), multiplicador, i, array.length),
-        })
+        array.unshift(
+          objetoTime(date.getHours() - j, date.getHours() - j + 24, date.getMinutes() - i * multiplicador, vela)
+        )
       } else {
-        array.unshift({
-          hours:
-            formatDateString(date.getHours() - j - 1) >= 0
-              ? formatDateString(date.getHours() - j - 1)
-              : formatDateString(date.getHours() + 23 - j),
-          minutes: formatDateString(60 + date.getMinutes() - i * multiplicador),
-          color: 'none',
-          bloque: isBloque(date.getMinutes(), multiplicador, i, array.length),
-        })
+        array.unshift(
+          objetoTime(date.getHours() - j - 1, date.getHours() + 23 - j, 60 + date.getMinutes() - i * multiplicador, vela)
+        )
       }
+      if (vela === 5) vela = 0
+      vela++
     }
   }
   return array
@@ -46,18 +48,9 @@ export function addDate(array, multiplicador) {
     const newArray = [...array]
     const date = new Date()
     const lastBloque = newArray.findLastIndex((value) => value.bloque == true)
-    newArray.push({
-      hours: formatDateString(date.getHours()),
-      minutes: formatDateString(date.getMinutes()),
-      color: 'none',
-      disable: 'disabled',
-      bloque: isBloque(
-        date.getMinutes(),
-        multiplicador,
-        0,
-        newArray.length - 1 - lastBloque
-      ),
-    })
+    newArray.push(
+      objetoBase(date.getHours(), date.getMinutes(), newArray.length - lastBloque)
+    )
     newArray.shift()
     sessionStorage.setItem('prev', JSON.stringify(newArray))
 
@@ -67,17 +60,18 @@ export function addDate(array, multiplicador) {
   return []
 }
 
+const colorCycle = {
+  none: 'high',
+  high: 'low',
+  low: 'stage',
+  stage: 'none',
+}
+
 export function changeColor(array, index) {
   const newArray = [...array]
-  if (newArray[index].color == 'none') {
-    newArray[index].color = 'high'
-  } else if (newArray[index].color == 'high') {
-    newArray[index].color = 'low'
-  } else if (newArray[index].color == 'low') {
-    newArray[index].color = 'stage'
-  } else {
-    newArray[index].color = 'none'
+  newArray[index] = {
+    ...newArray[index],
+    color: colorCycle[newArray[index].color] || 'none',
   }
-
   return newArray
 }
