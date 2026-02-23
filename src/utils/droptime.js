@@ -1,25 +1,27 @@
 const date = new Date()
-function isBloque(value) {
-  return value % 5 == 0
+function isBloque(value, contador) {
+  if (contador === 1) return value % 5 === 0
+  if (contador === 5) return value % 6 === 0
+  if (contador === 15) return value % 4 === 0
 }
 
 function formatDateString(date) {
   return String(date).padStart(2, '0')
 }
 
-const objetoBase = (hour, minutes, vela) => {
+const objetoBase = (hour, minutes, vela, contador) => {
   return {
     hours: formatDateString(hour),
     minutes: formatDateString(minutes),
-    bloque: isBloque(vela),
+    bloque: isBloque(vela, contador),
     color: 'none'
   }
 }
 
-const objetoTime = (horaBase, horaDos, minutes, vela) => {
-  if (horaBase >= 0) return objetoBase(horaBase, minutes, vela)
+const objetoTime = (horaBase, horaDos, minutes, vela, contador) => {
+  if (horaBase >= 0) return objetoBase(horaBase, minutes, vela, contador)
 
-  return objetoBase(horaDos, minutes, vela)
+  return objetoBase(horaDos, minutes, vela, contador)
 }
 
 export function time(multiplicador) {
@@ -30,14 +32,16 @@ export function time(multiplicador) {
     for (let i = 0; i < 60 / multiplicador; i++) {
       if (date.getMinutes() >= i * multiplicador) {
         array.unshift(
-          objetoTime(date.getHours() - j, date.getHours() - j + 24, date.getMinutes() - i * multiplicador, vela)
+          objetoTime(date.getHours() - j, date.getHours() - j + 24, date.getMinutes() - i * multiplicador, vela, multiplicador)
         )
       } else {
         array.unshift(
-          objetoTime(date.getHours() - j - 1, date.getHours() + 23 - j, 60 + date.getMinutes() - i * multiplicador, vela)
+          objetoTime(date.getHours() - j - 1, date.getHours() + 23 - j, 60 + date.getMinutes() - i * multiplicador, vela, multiplicador)
         )
       }
-      if (vela === 5) vela = 0
+      if (vela === 5 && multiplicador === 1) vela = 0
+      if (vela === 6 && multiplicador === 5) vela = 0
+      if (vela === 4 && multiplicador === 15) vela = 0
       vela++
     }
   }

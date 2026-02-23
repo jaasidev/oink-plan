@@ -525,5 +525,40 @@ export function estrategia(time, contador) {
         }
       },
     },
+    {
+      id: 65749,
+      title: 'Five Flip',
+      description:
+        'La vela numero 5 y la vela numero 6 van a tener el mismo color, gale en vela 7 y vela 8',
+      minutos: [5],
+      estrategia: () => {
+        let c = 0
+
+        const first =
+          time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
+        const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+        let index = first
+
+        while (index < last) {
+          if (time[index + 4].color != 'none') {
+            c = procesarGalesAnt(time, index + 5, time[index + 4].color, c)
+          }
+          index += 10
+        }
+
+        const { uno, dos, tres, confiabilidad } = procesarGales(
+          time,
+          last + 4 < length - 1 && time[last + 4]?.color != 'none',
+          last + 5,
+          time[last + 4]?.color,
+          c
+        )
+        c = confiabilidad
+
+        return {
+          uno, dos, tres, confiabilidad: c, prediccion: time[last + 4]?.color ? time[last + 4].color : 'none',
+        }
+      },
+    }
   ].filter((value) => value.minutos.includes(contador))
 }
