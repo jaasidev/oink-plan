@@ -559,6 +559,99 @@ export function estrategia(time, contador) {
           uno, dos, tres, confiabilidad: c, prediccion: time[last + 4]?.color ? time[last + 4].color : 'none',
         }
       },
+    },
+    {
+      id: 852364,
+      title: 'Turn Over',
+      description:
+        'El Patrón Turn Over para velas de M15 analiza la 4ª vela de un grupo de 4 velas, y se considerará victoria si la 1ª vela del siguiente bloque es de color opuesto.',
+      minutos: [15],
+      estrategia: () => {
+        let c = 0
+
+        let index = instancia + 4
+
+        while (index < ultimo) {
+          let contrario = time[index - 1]?.color == 'high' ? 'low' : time[index - 1]?.color == 'low' ? 'high' : ''
+          if (contrario != '') {
+            c = procesarGalesAnt(time, index, contrario, c)
+          }
+          index += 4
+        }
+
+        let contrario = time[ultimo - 1]?.color == 'high' ? 'low' : time[ultimo - 1]?.color == 'low' ? 'high' : ''
+        const { uno, dos, tres, confiabilidad } = procesarGales(
+          time,
+          ultimo < length - 1,
+          ultimo,
+          contrario,
+          c
+        )
+        c = confiabilidad
+
+        return { uno, dos, tres, confiabilidad: c, prediccion: contrario }
+      },
+    },
+    {
+      id: 357961,
+      title: 'MHI (Minoría)',
+      description:
+        'La estrategia MHI analiza las 03 últimas velas de un bloque con 04 velas y contabiliza la cantidad de velas alcistas y bajistas. La cantidad MENOR será la referencia de entrada.',
+      minutos: [15],
+      estrategia: () => {
+        let c = 0
+        let index = instancia
+        while (index + 8 < ultimo) {
+          let trozo = time.slice(index + 1, index + 4)
+          const balance = calcularBalance(trozo, true)
+
+          c = procesarGalesAnt(time, index + 4, balance, c)
+          index += 8
+        }
+
+        let trozo = time.slice(index + 1, index + 4)
+
+        const balance = calcularBalance(trozo, true)
+
+        const { uno, dos, tres, confiabilidad } = procesarGales(
+          time,
+          index + 4 < length - 1 && balance != '',
+          index + 4,
+          balance,
+          c
+        )
+        c = confiabilidad
+
+        return { uno, dos, tres, confiabilidad: c, prediccion: balance }
+      },
+    },
+    {
+      id: 145963,
+      title: 'Torres Gemelas',
+      description:
+        'El Patrón Torres Gemelas utiliza como referencia la 1ª Vela de un bloque de 04 velas y se considerará victoria cuando la 4ª vela del mismo bloque sea igual a la vela de referencia.',
+      minutos: [15],
+      estrategia: () => {
+        let c = 0
+        let index = instancia + 4
+        while (index < ultimo) {
+          if (time[index].color === time[index - 4].color && time[index].color != 'none') {
+            c = procesarGalesAnt(time, index, time[index - 4].color, c)
+          }
+          index += 4
+        }
+
+        const { uno, dos, tres, confiabilidad } = procesarGales(
+          time,
+          time[ultimo - 4].color != 'none',
+          ultimo,
+          time[ultimo - 4].color,
+          c
+        )
+        c = confiabilidad
+
+        return { uno, dos, tres, confiabilidad: c, prediccion: time[ultimo - 4].color }
+      },
     }
   ].filter((value) => value.minutos.includes(contador))
 }
