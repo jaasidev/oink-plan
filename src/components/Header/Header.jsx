@@ -1,5 +1,4 @@
 import { ThemeSwitch } from "../controllers/ThemeSwitch";
-import { GitHub } from "../../assets/githubLogo";
 
 export function Header() {
   return (
@@ -25,14 +24,31 @@ export function Header() {
           <path d='M4 18l16 0' />
         </svg>
       </label>
-      <a href="https://github.com/jaasidev/oink-plan" className="me-3 rounded-full p-0.5 dark:hover:bg-base-100 transition-all hover:bg-gray-200 ">
-        <GitHub width='22'
-          height='22' className='github' />
+      <div className="flex items-center">
+        <button className="me-3 cursor-pointer p-0.5 border-0 outline-0" onClick={() => document.getElementById('my_modal_1').showModal()}>
 
-      </a>
+          <svg aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+            <path d="M19 22v.01" />
+            <path d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+          </svg>
+
+        </button>
+        <ThemeSwitch />
+      </div>
 
 
-      <ThemeSwitch />
     </header>
   )
 }

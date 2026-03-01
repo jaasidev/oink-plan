@@ -1,3 +1,4 @@
+import { ModalHelp } from './components/modal/modalHelp'
 import { PageContent } from './components/sections/PageContent'
 import { SideBar } from './components/sections/SideBar'
 import { useTimeStore } from './hooks/useTimeStore'
@@ -33,6 +34,7 @@ function App() {
           <SideBar />
         </div>
       </div>
+      <ModalHelp />
     </>
   )
 }

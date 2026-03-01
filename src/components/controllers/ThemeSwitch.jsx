@@ -1,8 +1,8 @@
 import { useTheme } from "../../hooks/useTheme"
 export function ThemeSwitch() {
-    const {handleChange, themeRef}= useTheme()
+    const { handleChange, themeRef } = useTheme()
 
-    return (<label className='toggle text-base-content'>
+    return (<label className='toggle text-base-content me-3'>
         <input type='checkbox' value='synthwave' className='theme-controller' onChange={handleChange} ref={themeRef} />
 
         <svg

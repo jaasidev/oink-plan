@@ -24,7 +24,7 @@ export function PageContent() {
           <Hero />
         )}
       </div>
-      <Footer counter='Reloj' />
+      <Footer />
     </main>
   )
 }
