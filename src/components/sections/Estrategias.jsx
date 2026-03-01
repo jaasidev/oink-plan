@@ -1,22 +1,25 @@
 import { CardEstrategia } from '../cards/CardEstrategia'
-import { useTimeStore } from '../../hooks/useTimeStore'
+import { useEstrategia } from '../../hooks/useEstrategia'
 
 export function Estrategias() {
-  const estrategias = useTimeStore(state => state.estrategias)
-  const time = useTimeStore(state => state.time)
+  const { lista, time, handleClick, todos } = useEstrategia()
 
   return (
     <>
       <h2 className='text-center mt-10 mb-4 text-2xl font-bold'>Estrategias</h2>
       <section className='grid grid-layout p-6 pt-2 gap-7 justify-items-center'>
         {
-          estrategias.sort((a, b) => b.estrategia(time).confiabilidad - a.estrategia(time).confiabilidad).map((value) => {
+          lista.map((value) => {
             return (
               <CardEstrategia description={value.description} name={value.title} key={value.id} metodo={value.estrategia(time)} />
             )
           })
         }
       </section>
+      <div className='flex justify-center items-center pb-4'>
+        {todos &&
+          (<button className='btn btn-outline rounded-full border-secondary font-semibold' onClick={handleClick}>Ver todos</button>)}
+      </div>
     </>
   )
 }
