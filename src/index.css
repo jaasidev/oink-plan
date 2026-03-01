@@ -35,3 +35,7 @@
 .leyend:nth-child(3)::before {
     @apply bg-error
 }
+
+.github path{
+    fill: currentColor;
+}
