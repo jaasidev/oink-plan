@@ -1,3 +1,4 @@
+import { useEffectEvent } from 'react'
 import { ModalHelp } from './components/modal/modalHelp'
 import { PageContent } from './components/sections/PageContent'
 import { SideBar } from './components/sections/SideBar'
@@ -16,7 +17,6 @@ function App() {
       setContador(parseInt(sessionStorage.getItem('contador')))
       setEstrategias()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>

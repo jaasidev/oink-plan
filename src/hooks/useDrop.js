@@ -2,6 +2,7 @@ import { useTimeStore } from './useTimeStore'
 import { useEffect } from 'react'
 import { addDate } from '../utils/droptime'
 import { useState } from 'react'
+import { useEffectEvent } from 'react'
 export function useDrop() {
   const time = useTimeStore((state) => state.time)
   const setTime = useTimeStore((state) => state.setTime)
@@ -14,6 +15,11 @@ export function useDrop() {
     low: 0,
   })
 
+  const onUpdate = useEffectEvent(() => {
+    setTime(addDate(time, contador))
+    setEstrategias()
+  })
+
   useEffect(() => {
     let resta = 0
     if (new Date().getSeconds() != 0) {
@@ -22,16 +28,14 @@ export function useDrop() {
     const intervalId =
       contador != 0
         ? setInterval(() => {
-            setTime(addDate(time, contador))
-            setEstrategias()
-          }, contador * 60000 - resta)
+          onUpdate()
+        }, contador * 60000 - resta)
         : ''
 
     return () => {
       clearInterval(intervalId)
       clearInterval(resta)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time, contador])
 
   useEffect(() => {

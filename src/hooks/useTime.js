@@ -7,7 +7,6 @@ export function useTime() {
       setTiempo(new Date())
     }, 1000)
 
-    // Limpieza del intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId)
   }, [])
   return {
