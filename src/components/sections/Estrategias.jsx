@@ -1,5 +1,6 @@
 import { CardEstrategia } from '../cards/CardEstrategia'
 import { useEstrategia } from '../../hooks/useEstrategia'
+import { ButtonMore } from '../buttons/buttonMore'
 
 export function Estrategias() {
   const { lista, time, handleClick, todos } = useEstrategia()
@@ -17,8 +18,7 @@ export function Estrategias() {
         }
       </section>
       <div className='flex justify-center items-center pb-4'>
-        {todos &&
-          (<button className='btn btn-outline rounded-full border-secondary font-semibold' onClick={handleClick}>Ver todos</button>)}
+        <ButtonMore action={handleClick} extender={todos} />
       </div>
     </>
   )
