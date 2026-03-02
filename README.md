@@ -1,27 +1,34 @@
-# oink-plan
+# 🐷 OinkPlan
 
-Proyecto frontend hecho con React, Tailwind CSS, DaisyUI y Zustand.
+**Plataforma de estrategias de trading gratuita**
 
-Descripción breve: plantilla/arranque para crear interfaces reactivas
-con estilos utilitarios y gestión simple de estado.
+OinkPlan es una aplicación frontend construida con React que te ayuda a planificar tus futuras inversiones de manera fácil y segura. Selecciona rangos de tiempo y explora diversas opciones para definir tus estrategias, todo con una interfaz moderna y reactiva.
 
-**Tecnologías principales**
-- React
-- Tailwind CSS
-- DaisyUI
-- Zustand
+🔗 **Demo en vivo:** [https://oink-plan.pages.dev](https://oink-plan.pages.dev)
 
-**Rápido inicio**
-Instala dependencias y arranca el servidor de desarrollo:
+---
 
-```bash
-pnpm install
-pnpm dev
-```
+## 🛠️ Tecnologías Utilizadas
 
-**Comandos útiles**
-- `pnpm dev` — arranca el servidor de desarrollo
-- `pnpm build` — genera la versión para producción
-- `pnpm preview` — sirve la build localmente
+- **React** (v19) - Biblioteca principal para la interfaz de usuario.
+- **Vite** - Herramienta de construcción y servidor de desarrollo ultrarrápido.
+- **Tailwind CSS** (v4) - Framework de estilos utilitarios.
+- **DaisyUI** - Componentes de interfaz construidos sobre Tailwind.
+- **Zustand** - Estado global minimalista.
 
-Este README es una versión breve; se ampliará con más detalles luego.
+---
+
+## 📦 Scripts Disponibles
+
+En el directorio del proyecto, puedes ejecutar:
+
+- **`pnpm dev`** - Inicia el servidor de desarrollo con recarga en caliente.
+- **`pnpm build`** - Genera la versión de producción en la carpeta `dist`.
+- **`pnpm preview`** - Previsualiza la build de producción localmente.
+- **`pnpm lint`** - Ejecuta el linter para mantener la calidad del código.
+
+---
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Si tienes ideas para mejorar la plataforma, no dudes en abrir un issue o enviar un pull request.
