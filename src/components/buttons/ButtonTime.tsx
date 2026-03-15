@@ -1,5 +1,5 @@
 import { useTimeStore } from '../../hooks/useTimeStore'
-import { changeColor } from '../../utils/droptime'
+import { changeColor } from '../../utils/colors'
 import type { ColorType } from '../../types/estrategia'
 
 interface ButtonTimeProps {
