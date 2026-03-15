@@ -16,7 +16,7 @@ export function PageContent() {
       <div className='grow overflow-y-auto'>
         {time?.length > 0 ? (
           <>
-            <Reloj />
+            <Reloj counter='Contador sincronizado con hora actual'/>
             <TimeSection />
             <Estrategias />
           </>

@@ -1,7 +1,16 @@
 
 import { useTimeStore } from '../../hooks/useTimeStore'
 import { changeColor } from '../../utils/droptime'
-export function ButtonTime({ index, hours, minutes, bloque, color }) {
+import type { ColorType } from '../../types/estrategia'
+
+interface ButtonTimeProps{
+  index:number
+  hours:string
+  minutes:string
+  bloque: boolean
+  color: ColorType
+}
+export function ButtonTime({ index, hours, minutes, bloque, color }:ButtonTimeProps) {
   const time = useTimeStore((state) => state.time)
   const setTime=useTimeStore((state)=>state.setTime)
   const setEstrategias= useTimeStore((state)=>state.setEstrategias)

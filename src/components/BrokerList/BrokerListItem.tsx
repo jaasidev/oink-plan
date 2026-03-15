@@ -1,4 +1,9 @@
-export function BrokerListItem({ url, imageUrl, label }) {
+interface BrokerListItemProps{
+  url:string
+  imageUrl:string
+  label:string
+}
+export function BrokerListItem({ url, imageUrl, label }:BrokerListItemProps) {
   return (
     <li>
       <a

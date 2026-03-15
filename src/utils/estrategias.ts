@@ -1,5 +1,6 @@
 import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
-export function estrategia(time, contador) {
+import type { ColorType, Tiempo } from '../types/estrategia'
+export function estrategia(time:Tiempo[], contador:number) {
   const instancia = time.findIndex((value) => value.bloque)
   const ultimo = time.findLastIndex((value) => value.bloque)
   const { length } = time
@@ -28,7 +29,7 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 5 < length - 1 && balance != '',
+          index + 5 < length - 1 && balance != 'none',
           index + 5,
           balance,
           c
@@ -60,7 +61,7 @@ export function estrategia(time, contador) {
         const balance = calcularBalance(trozo)
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 5 < length - 1 && balance != '',
+          index + 5 < length - 1 && balance != 'none',
           index + 5,
           balance,
           c
@@ -128,7 +129,7 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          balance !== '' && ultimo < length - 1,
+          balance !== 'none' && ultimo < length - 1,
           ultimo,
           balance,
           c
@@ -162,7 +163,7 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          balance !== '' && ultimo < length - 1,
+          balance !== 'none' && ultimo < length - 1,
           ultimo,
           balance,
           c
@@ -236,7 +237,7 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 7 <= length - 1 && seguimientoBalance != '',
+          index + 7 <= length - 1 && seguimientoBalance != 'none',
           index + 7,
           seguimientoBalance,
           c
@@ -367,7 +368,7 @@ export function estrategia(time, contador) {
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           ultimo + 5 <= length - 1 &&
-          balance !== '' &&
+          balance !== 'none' &&
           ultimo + 4 <= length - 1,
           ultimo + 4,
           balance,
@@ -500,8 +501,8 @@ export function estrategia(time, contador) {
         let c = 0
 
         const first =
-          time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
-        const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+          Number(time[instancia].minutes) % 10 == 0 ? instancia : instancia + 5
+        const last = Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
         let index = first
 
         while (index < last) {
@@ -535,8 +536,8 @@ export function estrategia(time, contador) {
         let c = 0
 
         const first =
-          time[instancia].minutes % 10 == 0 ? instancia : instancia + 5
-        const last = time[ultimo].minutes % 10 == 0 ? ultimo : ultimo - 5
+          Number(time[instancia].minutes) % 10 == 0 ? instancia : instancia + 5
+        const last = Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
         let index = first
 
         while (index < last) {
@@ -572,14 +573,14 @@ export function estrategia(time, contador) {
         let index = instancia + 4
 
         while (index < ultimo) {
-          let contrario = time[index - 1]?.color == 'high' ? 'low' : time[index - 1]?.color == 'low' ? 'high' : ''
-          if (contrario != '') {
+          let contrario:ColorType = time[index - 1]?.color == 'high' ? 'low' : time[index - 1]?.color == 'low' ? 'high' : 'none'
+          if (contrario != 'none') {
             c = procesarGalesAnt(time, index, contrario, c)
           }
           index += 4
         }
 
-        let contrario = time[ultimo - 1]?.color == 'high' ? 'low' : time[ultimo - 1]?.color == 'low' ? 'high' : ''
+        let contrario:ColorType = time[ultimo - 1]?.color == 'high' ? 'low' : time[ultimo - 1]?.color == 'low' ? 'high' : 'none'
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           ultimo < length - 1,
@@ -615,7 +616,7 @@ export function estrategia(time, contador) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 4 < length - 1 && balance != '',
+          index + 4 < length - 1 && balance != 'none',
           index + 4,
           balance,
           c

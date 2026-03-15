@@ -1,4 +1,3 @@
-import { useEffectEvent } from 'react'
 import { ModalHelp } from './components/modal/modalHelp'
 import { PageContent } from './components/sections/PageContent'
 import { SideBar } from './components/sections/SideBar'
@@ -11,10 +10,11 @@ function App() {
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
 
   useEffect(() => {
-    const prev = sessionStorage.getItem('prev')
-    if (prev) {
-      setTime(JSON.parse(prev))
-      setContador(parseInt(sessionStorage.getItem('contador')))
+    const previousTime = sessionStorage.getItem('prev')
+    const previousContador = sessionStorage.getItem('contador')
+    if (previousContador && previousTime) {
+      setTime(JSON.parse(previousTime))
+      setContador(parseInt(previousContador))
       setEstrategias()
     }
   }, [])

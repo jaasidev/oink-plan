@@ -1,20 +1,22 @@
-export function calcularBalance(trozo, invertir = false) {
+import type { Tiempo, ColorType, EstrategiaResultado } from "../types/estrategia"
+
+export function calcularBalance(trozo: Tiempo[], invertir: boolean = false): ColorType {
   const alto = trozo.filter((v) => v.color === 'high').length
   const bajo = trozo.filter((v) => v.color === 'low').length
-  if (alto === bajo) return ''
+  if (alto === bajo) return 'none'
   const resultado = alto > bajo ? 'high' : 'low'
   return invertir ? (resultado === 'high' ? 'low' : 'high') : resultado
 }
 
 export function procesarGales(
-  time,
-  condicionAdicional,
-  index,
-  prediccion,
-  confiabilidad,
-  modifyUno=0,
-  modifyDos=0
-) {
+  time: Tiempo[],
+  condicionAdicional: any,
+  index: number,
+  prediccion: ColorType,
+  confiabilidad: number,
+  modifyUno = 0,
+  modifyDos = 0
+): EstrategiaResultado {
   let uno = 0,
     dos = 0,
     tres = 0
@@ -46,7 +48,7 @@ export function procesarGales(
   return { uno, dos, tres, confiabilidad }
 }
 
-export function procesarGalesAnt(time, index, prediccion, confiabilidad, modifyUno = 0, modifyDos = 0) {
+export function procesarGalesAnt(time: Tiempo[], index: number, prediccion: ColorType, confiabilidad: number, modifyUno = 0, modifyDos = 0): number {
   if (prediccion != 'none') {
     if (time[index].color == prediccion) {
       confiabilidad = Math.min(confiabilidad + 5, 99)

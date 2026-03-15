@@ -25,7 +25,10 @@ export function Header() {
         </svg>
       </label>
       <div className="flex items-center">
-        <button className="me-3 cursor-pointer p-0.5 border-0 outline-0" onClick={() => document.getElementById('my_modal_1').showModal()}>
+        <button className="me-3 cursor-pointer p-0.5 border-0 outline-0" onClick={() => {
+          const modal = document.getElementById('my_modal_1')
+          if (modal && modal instanceof HTMLDialogElement) modal.showModal()
+        }}>
 
           <svg aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"

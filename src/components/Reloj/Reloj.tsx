@@ -1,12 +1,16 @@
 import { useTime } from '../../hooks/useTime'
 
-export function Reloj({ counter }) {
+interface DaisyCountdown extends React.CSSProperties {
+  '--value': string | number
+}
+
+export function Reloj({ counter }:{counter:string}) {
   const { hours, minutes, seconds } = useTime()
   return (
     <div className='flex justify-center items-center lg:text-8xl text-6xl mt-10'>
       <span className='countdown font-mono'>
         <span
-          style={{ '--value': `${hours}` }}
+          style={{ '--value': `${hours}` } as DaisyCountdown}
           aria-live='polite'
           aria-label={counter}
         >
@@ -14,7 +18,7 @@ export function Reloj({ counter }) {
         </span>
         :
         <span
-          style={{ '--value': `${minutes}` }}
+          style={{ '--value': `${minutes}` } as DaisyCountdown}
           aria-live='polite'
           aria-label={counter}
         >
@@ -22,7 +26,7 @@ export function Reloj({ counter }) {
         </span>
         :
         <span
-          style={{ '--value': `${seconds}` }}
+          style={{ '--value': `${seconds}` } as DaisyCountdown}
           aria-live='polite'
           aria-label={counter}
         >

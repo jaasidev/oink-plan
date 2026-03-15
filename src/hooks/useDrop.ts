@@ -25,25 +25,24 @@ export function useDrop() {
     if (new Date().getSeconds() != 0) {
       resta = new Date().getSeconds() * 1000
     }
-    const intervalId =
-      contador != 0
-        ? setInterval(() => {
-          onUpdate()
-        }, contador * 60000 - resta)
-        : ''
+    let intervalId: any
+    if (contador != 0) {
+      intervalId = setInterval(() => {
+        onUpdate()
+      }, contador * 60000 - resta)
+    }
 
     return () => {
       clearInterval(intervalId)
-      clearInterval(resta)
     }
-  }, [time, contador])
+  }, [contador])
 
   useEffect(() => {
     setVelas({
-      total: time.filter((value) => value.color != 'none').length,
-      high: time.filter((value) => value.color == 'high').length,
-      stage: time.filter((value) => value.color == 'stage').length,
-      low: time.filter((value) => value.color == 'low').length,
+      total: time.filter((value) => value.color !== 'none').length,
+      high: time.filter((value) => value.color === 'high').length,
+      stage: time.filter((value) => value.color === 'stage').length,
+      low: time.filter((value) => value.color === 'low').length,
     })
   }, [time])
 

@@ -1,6 +1,13 @@
+import type { EstrategiaResultadoInfo } from "../../types/estrategia"
 import { ApuestaBadge } from "../badges/ApuestaBadge"
 
-export function CardEstrategia({ name, description, metodo }) {
+interface CardEstrategiaProps {
+    name: string
+    description: string
+    metodo: EstrategiaResultadoInfo
+}
+
+export function CardEstrategia({ name, description, metodo }: CardEstrategiaProps) {
 
     const { uno, dos, tres, confiabilidad, prediccion } = metodo
 

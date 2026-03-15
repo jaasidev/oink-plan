@@ -3,28 +3,33 @@ import { useTimeStore } from '../../hooks/useTimeStore'
 import { time } from '../../utils/droptime'
 import { useRef } from 'react'
 export function FormSide() {
-  const minRef = useRef(null)
-  const monedaRef = useRef(null)
+  const minRef = useRef<HTMLSelectElement>(null)
+  const monedaRef = useRef<HTMLSelectElement>(null)
   const setTime = useTimeStore((state) => state.setTime)
   const setContador = useTimeStore((state) => state.setContador)
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
   const resetEstrategias = useTimeStore((state) => state.resetEstrategias)
 
-  const handlSubmit = (event) => {
+  const handlSubmit = (event:React.SubmitEvent) => {
     event.preventDefault()
-    setTime(time(Number.parseInt(minRef.current.value)))
-    setContador(Number.parseInt(minRef.current.value))
+    if (minRef.current) {
+      setTime(time(Number.parseInt(minRef.current.value)))
+      setContador(Number.parseInt(minRef.current.value))
+    }
+
     setEstrategias()
     sessionStorage.removeItem('prev')
-    sessionStorage.setItem('contador', minRef.current.value)
+    if (minRef.current) sessionStorage.setItem('contador', minRef.current.value)
   }
 
   const handleDelete = () => {
     setTime([])
     setContador(1)
     resetEstrategias()
-    minRef.current.value = ''
-    monedaRef.current.value = ''
+    if (minRef.current) minRef.current.value = ''
+
+    if (monedaRef.current) monedaRef.current.value = ''
+
   }
   return (
     <>
