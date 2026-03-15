@@ -8,6 +8,10 @@ export function calcularBalance(trozo: Tiempo[], invertir: boolean = false): Col
   return invertir ? (resultado === 'high' ? 'low' : 'high') : resultado
 }
 
+export function formatDateString(date: number): string {
+  return String(date).padStart(2, '0')
+}
+
 export function procesarGales(
   time: Tiempo[],
   condicionAdicional: any,

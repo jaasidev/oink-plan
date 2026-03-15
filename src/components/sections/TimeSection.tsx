@@ -1,7 +1,9 @@
 import { ButtonTime } from '../buttons/ButtonTime'
 import { useDrop } from '../../hooks/useDrop'
+import { useTimeStore } from '../../hooks/useTimeStore'
 export function TimeSection() {
-  const { time, velas } = useDrop()
+  const { time } = useDrop()
+  const velas = useTimeStore((state) => state.velas)
   return (
     <div className='px-6'>
       <h2 className='text-center font-bold text-2xl mb-3 mt-12'>
