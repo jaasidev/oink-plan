@@ -10,12 +10,18 @@ export function Estrategias() {
       <h2 className='text-center mt-10 mb-4 text-2xl font-bold'>Estrategias</h2>
       <section className='grid grid-layout p-6 pt-2 gap-7 justify-items-center'>
         {lista.map((value) => {
+          const { uno, dos, tres, confiabilidad, prediccion } =
+            value.estrategia(time)
           return (
             <CardEstrategia
               description={value.description}
               name={value.title}
               key={value.id}
-              metodo={value.estrategia(time)}
+              prediccion={prediccion}
+              uno={uno}
+              dos={dos}
+              tres={tres}
+              confiabilidad={confiabilidad}
             />
           )
         })}
