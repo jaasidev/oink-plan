@@ -54,17 +54,17 @@ export function procesarGales(
 
 export function procesarGalesAnt(time: Tiempo[], index: number, prediccion: ColorType, confiabilidad: number, modifyUno = 0, modifyDos = 0): number {
   if (prediccion != 'none') {
-    if (time[index].color == prediccion) {
+    if (time[index].color === prediccion) {
       confiabilidad = Math.min(confiabilidad + 5, 99)
     } else if (
       time[index].color != 'none' &&
-      time[index + 1 + modifyUno].color == prediccion
+      time[index + 1 + modifyUno]?.color === prediccion
     ) {
       confiabilidad = Math.min(confiabilidad + 3, 99)
     } else if (
       time[index].color != 'none' &&
-      time[index + 1 + modifyUno].color != 'none' &&
-      time[index + 2 + modifyDos].color == prediccion
+      time[index + 1 + modifyUno]?.color !== 'none' &&
+      time[index + 2 + modifyDos]?.color === prediccion
     ) {
       confiabilidad = Math.min(confiabilidad + 1, 99)
     }

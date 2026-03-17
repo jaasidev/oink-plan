@@ -28,7 +28,7 @@ interface StoreProps {
 
 export const useTimeStore = create<StoreProps>((set) => ({
   time: [],
-  contador: 1,
+  contador: 0,
   estrategias: [],
   velas: {
     total: 0,

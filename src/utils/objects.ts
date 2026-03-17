@@ -24,12 +24,13 @@ export const objetoBase = (
 
 export const objetoTime = (
   horaBase: number,
-  horaDos: number,
+  nuevaHoraBase: number,
   minutes: number,
   vela: number,
   contador: number,
 ): Tiempo => {
+  /**validacion en caso de que tenga que empezar a contar de forma regresiva desde 24 */
   if (horaBase >= 0) return objetoBase(horaBase, minutes, vela, contador)
 
-  return objetoBase(horaDos, minutes, vela, contador)
+  return objetoBase(nuevaHoraBase, minutes, vela, contador)
 }
