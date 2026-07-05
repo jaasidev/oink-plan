@@ -1,4 +1,4 @@
-import { useTimeStore } from './useTimeStore'
+import { useTimeStore } from '../context/useTimeStore'
 import { useEffect, useEffectEvent } from 'react'
 export function useDrop() {
   const time = useTimeStore((state) => state.time)

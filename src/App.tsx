@@ -1,14 +1,14 @@
 import { ModalHelp } from './components/modal/modalHelp'
 import { PageContent } from './components/sections/PageContent'
 import { SideBar } from './components/sections/SideBar'
-import { useTimeStore } from './hooks/useTimeStore'
+import { useTimeStore } from './context/useTimeStore'
 import { useEffect } from 'react'
 
 function App() {
   const setTime = useTimeStore((state) => state.setTime)
   const setContador = useTimeStore((state) => state.setContador)
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
-  const updateVelas=useTimeStore(state=> state.updateVelas)
+  const updateVelas = useTimeStore((state) => state.updateVelas)
 
   useEffect(() => {
     const previousTime = sessionStorage.getItem('prev')

@@ -1,5 +1,5 @@
 import { ApuestaBadge } from '../badges/ApuestaBadge'
-import { useTimeStore } from '../../hooks/useTimeStore'
+import { useTimeStore } from '../../context/useTimeStore'
 
 interface CardEstrategiaProps {
   readonly id: number

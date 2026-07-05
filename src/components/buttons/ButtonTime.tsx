@@ -1,4 +1,4 @@
-import { useTimeStore } from '../../hooks/useTimeStore'
+import { useTimeStore } from '../../context/useTimeStore'
 import { changeColor } from '../../utils/colors'
 import type { ColorType } from '../../types/estrategia'
 

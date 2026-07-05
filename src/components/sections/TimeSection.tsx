@@ -1,6 +1,6 @@
 import { ButtonTime } from '../buttons/ButtonTime'
 import { useDrop } from '../../hooks/useDrop'
-import { useTimeStore } from '../../hooks/useTimeStore'
+import { useTimeStore } from '../../context/useTimeStore'
 export function TimeSection() {
   const { time } = useDrop()
   const velas = useTimeStore((state) => state.velas)
