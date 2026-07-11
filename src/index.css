@@ -4,6 +4,17 @@
 @plugin "daisyui";
 
 
+@font-face {
+    font-family: Cascadia Code;
+    font-style: normal;
+    font-weight: 200 500 600 700 800;
+    font-display: swap;
+    src: url("/public/fonts/CascadiaCode.woff2") format("woff2");
+}
+
+@theme {
+    --default-font-family: "Cascadia Code", sans-serif;
+}
 
 
 .grid-layout {
@@ -36,6 +47,6 @@
     @apply bg-error
 }
 
-.github path{
+.github path {
     fill: currentColor;
 }
