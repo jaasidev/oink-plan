@@ -1,13 +1,14 @@
 import { useTimeStore } from '../../context/useTimeStore'
 import { changeColor } from '../../utils/colors'
+import { ApuestasEstados } from '../../schemas/enums'
 import type { ColorType } from '../../types/estrategia'
 
 interface ButtonTimeProps {
-  index: number
-  hours: string
-  minutes: string
-  bloque: boolean
-  color: ColorType
+  readonly index: number
+  readonly hours: string
+  readonly minutes: string
+  readonly bloque: boolean
+  readonly color: ColorType
 }
 export function ButtonTime({
   index,
@@ -28,14 +29,15 @@ export function ButtonTime({
     updateVelas()
   }
   const borde = bloque ? 'border border-pink-500' : ''
-  const bg =
-    color == 'high'
-      ? 'btn-success'
-      : color == 'stage'
-        ? 'btn-warning'
-        : color == 'low'
-          ? 'btn-error'
-          : ''
+  let bg = ''
+
+  if (color == ApuestasEstados.HIGH) {
+    bg = 'btn-success'
+  } else if (color == ApuestasEstados.STAGE) {
+    bg = 'btn-warning'
+  } else if (color == ApuestasEstados.LOW) {
+    bg = 'btn-error'
+  }
   return (
     <button className={`btn  w-15 ${bg} ${borde}`} onClick={handleClick}>
       {hours}:{minutes}

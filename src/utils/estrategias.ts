@@ -1,6 +1,14 @@
 import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
+import { ApuestasEstados } from '../schemas/enums'
 import type { ColorType, Tiempo } from '../types/estrategia'
-export function estrategia(time:Tiempo[], contador:number) {
+
+function obtenerContrario(color?: ColorType): ColorType {
+  if (color === ApuestasEstados.HIGH) return ApuestasEstados.LOW
+  if (color === ApuestasEstados.LOW) return ApuestasEstados.HIGH
+  return ApuestasEstados.NONE
+}
+
+export function estrategia(time: Tiempo[], contador: number) {
   const instancia = time.findIndex((value) => value.bloque)
   const ultimo = time.findLastIndex((value) => value.bloque)
   const { length } = time
@@ -29,10 +37,10 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 5 < length - 1 && balance != 'none',
+          index + 5 < length - 1 && balance != ApuestasEstados.NONE,
           index + 5,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
@@ -61,15 +69,19 @@ export function estrategia(time:Tiempo[], contador:number) {
         const balance = calcularBalance(trozo)
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 5 < length - 1 && balance != 'none',
+          index + 5 < length - 1 && balance != ApuestasEstados.NONE,
           index + 5,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: balance,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: balance,
         }
       },
     },
@@ -84,7 +96,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia
         const bloque = ultimo + 3 < length - 1 ? ultimo : ultimo - 5
         while (index < bloque) {
-          if (time[index + 2].color != 'none') {
+          if (time[index + 2].color != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 3, time[index + 2].color, c)
           }
 
@@ -96,12 +108,14 @@ export function estrategia(time:Tiempo[], contador:number) {
           bloque + 3 < length - 1,
           bloque + 3,
           time[bloque + 2].color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres,
+          uno,
+          dos,
+          tres,
           confiabilidad: c,
           prediccion: time[bloque + 2].color,
         }
@@ -129,15 +143,19 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          balance !== 'none' && ultimo < length - 1,
+          balance !== ApuestasEstados.NONE && ultimo < length - 1,
           ultimo,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: balance,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: balance,
         }
       },
     },
@@ -163,15 +181,19 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          balance !== 'none' && ultimo < length - 1,
+          balance !== ApuestasEstados.NONE && ultimo < length - 1,
           ultimo,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: balance,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: balance,
         }
       },
     },
@@ -188,30 +210,34 @@ export function estrategia(time:Tiempo[], contador:number) {
         while (index + 9 < ultimo) {
           if (
             time[index].color == time[index + 2].color &&
-            time[index].color !== 'none'
+            time[index].color !== ApuestasEstados.NONE
           ) {
             c = procesarGalesAnt(time, index + 4, time[index].color, c, 1, 2)
           }
           index += 10
         }
 
-
         const prediccion = time[index].color
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           index + 4 < length - 1 &&
-          time[index].color == time[index + 2].color &&
-          prediccion !== 'none',
+            time[index].color == time[index + 2].color &&
+            prediccion !== ApuestasEstados.NONE,
           index + 4,
           prediccion,
           c,
-          1, 2
+          1,
+          2,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: prediccion,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: prediccion,
         }
       },
     },
@@ -237,15 +263,19 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 7 <= length - 1 && seguimientoBalance != 'none',
+          index + 7 <= length - 1 && seguimientoBalance != ApuestasEstados.NONE,
           index + 7,
           seguimientoBalance,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: seguimientoBalance,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: seguimientoBalance,
         }
       },
     },
@@ -260,7 +290,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia
 
         while (index < ultimo) {
-          if (time[index].color != 'none') {
+          if (time[index].color != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 1, time[index].color, c)
           }
           index += 5
@@ -268,15 +298,19 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          time[ultimo].color != 'none' && ultimo + 1 < length - 1,
+          time[ultimo].color != ApuestasEstados.NONE && ultimo + 1 < length - 1,
           ultimo + 1,
           time[ultimo].color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[ultimo].color,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[ultimo].color,
         }
       },
     },
@@ -291,25 +325,27 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia
 
         while (index + 9 < ultimo) {
-          if (time[index].color !== 'none') {
+          if (time[index].color !== ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 4, time[index].color, c)
           }
           index += 10
         }
 
-
-
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 4 < length - 1 && time[index].color !== 'none',
+          index + 4 < length - 1 && time[index].color !== ApuestasEstados.NONE,
           index + 4,
           time[index].color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[index].color,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[index].color,
         }
       },
     },
@@ -325,7 +361,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         const bloque = ultimo + 4 <= length - 1 ? ultimo : ultimo - 5
 
         while (index < bloque) {
-          if (time[index + 3].color != 'none') {
+          if (time[index + 3].color != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 4, time[index + 3].color, c)
           }
           index += 5
@@ -333,15 +369,20 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          bloque + 4 <= length - 1 && time[bloque + 3].color != 'none',
+          bloque + 4 <= length - 1 &&
+            time[bloque + 3].color != ApuestasEstados.NONE,
           bloque + 4,
           time[bloque + 3].color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[bloque + 3].color,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[bloque + 3].color,
         }
       },
     },
@@ -368,16 +409,20 @@ export function estrategia(time:Tiempo[], contador:number) {
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           ultimo + 5 <= length - 1 &&
-          balance !== 'none' &&
-          ultimo + 4 <= length - 1,
+            balance !== ApuestasEstados.NONE &&
+            ultimo + 4 <= length - 1,
           ultimo + 4,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: balance,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: balance,
         }
       },
     },
@@ -394,7 +439,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         while (index < ultimo) {
           if (
             time[index].color == time[index + 1].color &&
-            time[index].color != 'none'
+            time[index].color != ApuestasEstados.NONE
           ) {
             c = procesarGalesAnt(time, index + 2, time[index].color, c)
           }
@@ -404,16 +449,20 @@ export function estrategia(time:Tiempo[], contador:number) {
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           ultimo + 3 <= length - 1 &&
-          time[ultimo].color == time[ultimo + 1].color &&
-          time[ultimo].color != 'none',
+            time[ultimo].color == time[ultimo + 1].color &&
+            time[ultimo].color != ApuestasEstados.NONE,
           ultimo + 2,
           time[ultimo].color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[ultimo].color,
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[ultimo].color,
         }
       },
     },
@@ -429,7 +478,7 @@ export function estrategia(time:Tiempo[], contador:number) {
           dos: 0,
           tres: 0,
           confiabilidad: 0,
-          prediccion: '',
+          prediccion: ApuestasEstados.NONE,
         }
       },
     },
@@ -445,7 +494,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia
 
         while (index < ultimo) {
-          c = procesarGalesAnt(time, index + 4, 'low', c)
+          c = procesarGalesAnt(time, index + 4, ApuestasEstados.LOW, c)
           index += 10
         }
 
@@ -453,12 +502,18 @@ export function estrategia(time:Tiempo[], contador:number) {
           time,
           index + 4 < length - 1,
           index + 4,
-          'low',
-          c
+          ApuestasEstados.LOW,
+          c,
         )
         c = confiabilidad
 
-        return { uno, dos, tres, confiabilidad: c, prediccion: 'low' }
+        return {
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: ApuestasEstados.LOW,
+        }
       },
     },
     {
@@ -473,7 +528,7 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia + 10
 
         while (index + 9 < ultimo) {
-          c = procesarGalesAnt(time, index - 1, 'high', c)
+          c = procesarGalesAnt(time, index - 1, ApuestasEstados.HIGH, c)
           index += 10
         }
 
@@ -481,13 +536,17 @@ export function estrategia(time:Tiempo[], contador:number) {
           time,
           index - 1 < length - 1,
           index - 1,
-          'high',
-          c
+          ApuestasEstados.HIGH,
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: 'high',
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: ApuestasEstados.HIGH,
         }
       },
     },
@@ -502,11 +561,12 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const first =
           Number(time[instancia].minutes) % 10 == 0 ? instancia : instancia + 5
-        const last = Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
+        const last =
+          Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
         let index = first
 
         while (index < last) {
-          if (time[index + 6].color != 'none') {
+          if (time[index + 6].color != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 7, time[index + 6].color, c)
           }
           index += 10
@@ -514,15 +574,22 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          last + 6 < length - 1 && time[last + 6]?.color != 'none',
+          last + 6 < length - 1 &&
+            time[last + 6]?.color != ApuestasEstados.NONE,
           last + 7,
           time[last + 6]?.color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[last + 6]?.color ? time[last + 6].color : 'none',
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[last + 6]?.color
+            ? time[last + 6].color
+            : ApuestasEstados.NONE,
         }
       },
     },
@@ -537,11 +604,12 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const first =
           Number(time[instancia].minutes) % 10 == 0 ? instancia : instancia + 5
-        const last = Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
+        const last =
+          Number(time[ultimo].minutes) % 10 == 0 ? ultimo : ultimo - 5
         let index = first
 
         while (index < last) {
-          if (time[index + 4].color != 'none') {
+          if (time[index + 4].color != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index + 5, time[index + 4].color, c)
           }
           index += 10
@@ -549,15 +617,22 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          last + 4 < length - 1 && time[last + 4]?.color != 'none',
+          last + 4 < length - 1 &&
+            time[last + 4]?.color != ApuestasEstados.NONE,
           last + 5,
           time[last + 4]?.color,
-          c
+          c,
         )
         c = confiabilidad
 
         return {
-          uno, dos, tres, confiabilidad: c, prediccion: time[last + 4]?.color ? time[last + 4].color : 'none',
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[last + 4]?.color
+            ? time[last + 4].color
+            : ApuestasEstados.NONE,
         }
       },
     },
@@ -573,20 +648,20 @@ export function estrategia(time:Tiempo[], contador:number) {
         let index = instancia + 4
 
         while (index < ultimo) {
-          let contrario:ColorType = time[index - 1]?.color == 'high' ? 'low' : time[index - 1]?.color == 'low' ? 'high' : 'none'
-          if (contrario != 'none') {
+          const contrario = obtenerContrario(time[index - 1]?.color)
+          if (contrario != ApuestasEstados.NONE) {
             c = procesarGalesAnt(time, index, contrario, c)
           }
           index += 4
         }
 
-        let contrario:ColorType = time[ultimo - 1]?.color == 'high' ? 'low' : time[ultimo - 1]?.color == 'low' ? 'high' : 'none'
+        const contrario = obtenerContrario(time[ultimo - 1]?.color)
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
           ultimo < length - 1,
           ultimo,
           contrario,
-          c
+          c,
         )
         c = confiabilidad
 
@@ -616,10 +691,10 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          index + 4 < length - 1 && balance != 'none',
+          index + 4 < length - 1 && balance != ApuestasEstados.NONE,
           index + 4,
           balance,
-          c
+          c,
         )
         c = confiabilidad
 
@@ -636,7 +711,10 @@ export function estrategia(time:Tiempo[], contador:number) {
         let c = 0
         let index = instancia + 4
         while (index < ultimo) {
-          if (time[index].color === time[index - 4].color && time[index].color != 'none') {
+          if (
+            time[index].color === time[index - 4].color &&
+            time[index].color != ApuestasEstados.NONE
+          ) {
             c = procesarGalesAnt(time, index, time[index - 4].color, c)
           }
           index += 4
@@ -644,15 +722,21 @@ export function estrategia(time:Tiempo[], contador:number) {
 
         const { uno, dos, tres, confiabilidad } = procesarGales(
           time,
-          time[ultimo - 4].color != 'none',
+          time[ultimo - 4].color != ApuestasEstados.NONE,
           ultimo,
           time[ultimo - 4].color,
-          c
+          c,
         )
         c = confiabilidad
 
-        return { uno, dos, tres, confiabilidad: c, prediccion: time[ultimo - 4].color }
+        return {
+          uno,
+          dos,
+          tres,
+          confiabilidad: c,
+          prediccion: time[ultimo - 4].color,
+        }
       },
-    }
+    },
   ].filter((value) => value.minutos.includes(contador))
 }

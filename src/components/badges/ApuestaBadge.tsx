@@ -1,15 +1,20 @@
 import type { ColorType } from '../../types/estrategia'
+import { ApuestasEstados } from '../../schemas/enums'
 
 interface ApuestaBadgeProps {
-    prediccion: ColorType
-    active: number
-    texto: string
+  readonly prediccion: ColorType
+  readonly active: number
+  readonly texto: string
 }
 
 export function ApuestaBadge({ prediccion, active, texto }: ApuestaBadgeProps) {
-    const bg = (prediccion === 'high' && active === 100) ? 'badge-success  badge-soft' : (prediccion === 'low' && active === 100) ? 'badge-error badge-soft' : 'text-gray-400 badge-dash  dark:text-gray-700'
+  let bg = 'text-gray-400 badge-dash  dark:text-gray-700'
 
-    return (
-        <div className={`badge  ${bg}`}>{texto}</div>
-    )
+  if (prediccion === ApuestasEstados.HIGH && active === 100) {
+    bg = 'badge-success  badge-soft'
+  } else if (prediccion === ApuestasEstados.LOW && active === 100) {
+    bg = 'badge-error badge-soft'
+  }
+
+  return <div className={`badge  ${bg}`}>{texto}</div>
 }

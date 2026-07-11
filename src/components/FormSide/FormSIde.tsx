@@ -1,6 +1,7 @@
 import { BrokerList } from '../BrokerList/BrokerList'
 import { useTimeStore } from '../../context/useTimeStore'
 import { useRef } from 'react'
+import type { Bloque } from '../../types/estrategia'
 export function FormSide() {
   const minRef = useRef<HTMLSelectElement>(null)
   const monedaRef = useRef<HTMLSelectElement>(null)
@@ -14,7 +15,7 @@ export function FormSide() {
   const handlSubmit = (event: React.SubmitEvent) => {
     event.preventDefault()
     if (minRef.current) {
-      setContador(Number.parseInt(minRef.current.value))
+      setContador(Number.parseInt(minRef.current.value) as Bloque)
       setInitTime()
       resetVelas()
     }
