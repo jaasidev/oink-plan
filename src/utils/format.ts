@@ -1,7 +1,10 @@
-import type { EstrategiaBasica } from '../types/estrategia'
+import type { EstrategiaBasica } from '../schemas/estrategia'
 export function formatEstrategias(
   lista: EstrategiaBasica[],
   corte: boolean,
 ): EstrategiaBasica[] {
-  return corte ? lista.slice(0, 6) : lista
+  if (corte) {
+    return lista.slice(0, 6)
+  }
+  return lista
 }

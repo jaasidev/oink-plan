@@ -1,66 +1,62 @@
-import type { Tiempo } from '../types/estrategia'
-import { objetoTime, objetoBase } from './objects'
+import type { Tiempo, Bloque } from '../schemas/estrategia'
+import { objetoBase } from './objects'
+import { findLastBloque } from './helpers'
 
-export function initTime(multiplicador: number): Tiempo[] {
+export const limiteVela: Record<Bloque, number> = {
+  1: 5,
+  5: 6,
+  15: 4,
+}
+
+export function initTime(multiplicador: Bloque): Tiempo[] {
   const date = new Date()
   const array: Tiempo[] = []
   let vela = 1
-  /**Definiendo rango de 6 horas antes de la hora actual */
-  for (let j = 0; j < 6; j++) {
-    /**Definiendo minutos que tiene una hora */
-    for (let i = 0; i < 60 / multiplicador; i++) {
-      /**Escenario  1, el minutos se ajusta a la hora actual*/
-      if (date.getMinutes() >= i * multiplicador) {
-        array.unshift(
-          objetoTime(
-            date.getHours() - j,
-            date.getHours() - j + 24,
-            date.getMinutes() - i * multiplicador,
-            vela,
-            multiplicador,
-          ),
-        )
-      } else {
-        /**Escenario 2: el minuto es parte de la hora anterior */
-        array.unshift(
-          objetoTime(
-            date.getHours() - j - 1,
-            date.getHours() - j + 23,
-            60 + date.getMinutes() - i * multiplicador,
-            vela,
-            multiplicador,
-          ),
-        )
-      }
-      /**Reinciando contadores de velas que definen los bloques cada ciertos lapsos predefinidos */
-      if (vela === 5 && multiplicador === 1) vela = 0
-      if (vela === 6 && multiplicador === 5) vela = 0
-      if (vela === 4 && multiplicador === 15) vela = 0
-      vela++
+  const bloquesPorHora = 60 / multiplicador
+
+  for (let horaOffset = 5; horaOffset >= 0; horaOffset--) {
+    for (
+      let bloqueOffset = bloquesPorHora - 1;
+      bloqueOffset >= 0;
+      bloqueOffset--
+    ) {
+      const desplazamientoMinutos =
+        horaOffset * 60 + bloqueOffset * multiplicador
+      const fecha = new Date(date.getTime() - desplazamientoMinutos * 60000)
+
+      array.push(
+        objetoBase(fecha.getHours(), fecha.getMinutes(), vela, multiplicador),
+      )
+
+      vela = avanzarVela(vela, multiplicador)
     }
   }
+
   return array
 }
 
-export function addDate(array: Tiempo[], multiplicador: number): Tiempo[] {
+export function addDate(array: Tiempo[], multiplicador: Bloque): Tiempo[] {
   const hora = new Date()
-  if (array.length > 0) {
-    const newArray = [...array]
-    const lastBloque: number = newArray.findLastIndex(
-      (value: Tiempo) => value.bloque,
-    )
-    newArray.push(
-      objetoBase(
-        hora.getHours(),
-        hora.getMinutes(),
-        newArray.length - lastBloque,
-        multiplicador,
-      ),
-    )
-    newArray.shift()
-    
-    return newArray
-  }
+  if (array.length === 0) return []
 
-  return []
+  const newArray = [...array]
+  const lastBloque = findLastBloque(newArray)
+
+  if (lastBloque === null) return newArray
+
+  newArray.push(
+    objetoBase(
+      hora.getHours(),
+      hora.getMinutes(),
+      newArray.length - lastBloque,
+      multiplicador,
+    ),
+  )
+  newArray.shift()
+
+  return newArray
+}
+
+function avanzarVela(velaActual: number, multiplicador: Bloque): number {
+  return velaActual === limiteVela[multiplicador] ? 1 : velaActual + 1
 }

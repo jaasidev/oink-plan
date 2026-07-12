@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { estrategia } from '../utils/estrategias'
 import { addDate, initTime } from '../utils/droptime'
-import type { Tiempo, EstrategiaBasica } from '../types/estrategia'
+import { ApuestasEstados } from '../schemas/enums'
+import type { Tiempo, EstrategiaBasica, Bloque } from '../schemas/estrategia'
 
 interface Velas {
   total: number
@@ -12,11 +13,11 @@ interface Velas {
 
 interface StoreProps {
   time: Tiempo[]
-  contador: number
+  contador: Bloque
   estrategias: EstrategiaBasica[]
   velas: Velas
   setTime: (value: Tiempo[]) => void
-  setContador: (value: number) => void
+  setContador: (value: Bloque) => void
   setEstrategias: () => void
   resetEstrategias: () => void
   updateVelas: () => void
@@ -28,7 +29,7 @@ interface StoreProps {
 
 export const useTimeStore = create<StoreProps>((set) => ({
   time: [],
-  contador: 0,
+  contador: 1,
   estrategias: [],
   velas: {
     total: 0,
@@ -48,7 +49,7 @@ export const useTimeStore = create<StoreProps>((set) => ({
   resetTime: () => {
     set({ time: [] })
   },
-  setContador: (value: number) => {
+  setContador: (value: Bloque) => {
     set({ contador: value })
   },
   setEstrategias: () => {
@@ -61,16 +62,16 @@ export const useTimeStore = create<StoreProps>((set) => ({
     set((state) => ({
       velas: state.time.reduce(
         (acc, value) => {
-          if (value.color !== 'none') acc.total += 1
+          if (value.color !== ApuestasEstados.NONE) acc.total += 1
 
           switch (value.color) {
-            case 'high':
+            case ApuestasEstados.HIGH:
               acc.high += 1
               break
-            case 'stage':
+            case ApuestasEstados.STAGE:
               acc.stage += 1
               break
-            case 'low':
+            case ApuestasEstados.LOW:
               acc.low += 1
               break
           }

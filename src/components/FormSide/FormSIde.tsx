@@ -1,7 +1,7 @@
 import { BrokerList } from '../BrokerList/BrokerList'
 import { useTimeStore } from '../../context/useTimeStore'
 import { useRef } from 'react'
-import type { Bloque } from '../../types/estrategia'
+import type { Bloque } from '../../schemas/estrategia'
 export function FormSide() {
   const minRef = useRef<HTMLSelectElement>(null)
   const monedaRef = useRef<HTMLSelectElement>(null)

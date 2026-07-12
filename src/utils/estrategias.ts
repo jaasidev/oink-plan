@@ -1,6 +1,6 @@
 import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
 import { ApuestasEstados } from '../schemas/enums'
-import type { ColorType, Tiempo } from '../types/estrategia'
+import type { ColorType, Tiempo } from '../schemas/estrategia'
 
 function obtenerContrario(color?: ColorType): ColorType {
   if (color === ApuestasEstados.HIGH) return ApuestasEstados.LOW

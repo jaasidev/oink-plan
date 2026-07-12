@@ -1,9 +1,11 @@
-import type { ColorType, Tiempo } from '../types/estrategia'
+import { ApuestasEstados } from '../schemas/enums'
+import type { ColorType, Tiempo } from '../schemas/estrategia'
+
 const colorCycle: Record<ColorType, ColorType> = {
-  none: 'high',
-  high: 'low',
-  low: 'stage',
-  stage: 'none',
+  [ApuestasEstados.NONE]: ApuestasEstados.HIGH,
+  [ApuestasEstados.HIGH]: ApuestasEstados.LOW,
+  [ApuestasEstados.LOW]: ApuestasEstados.STAGE,
+  [ApuestasEstados.STAGE]: ApuestasEstados.NONE,
 }
 
 export function changeColor(array: Tiempo[], index: number): Tiempo[] {

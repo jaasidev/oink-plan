@@ -1,7 +1,7 @@
 import { useTimeStore } from '../context/useTimeStore'
 import { useEffect, useState } from 'react'
 import { formatEstrategias } from '../utils/format'
-import type { EstrategiaBasica } from '../types/estrategia'
+import type { EstrategiaBasica } from '../schemas/estrategia'
 
 interface UseEstrategiaProps {
   lista: EstrategiaBasica[]

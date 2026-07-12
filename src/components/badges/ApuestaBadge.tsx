@@ -1,4 +1,4 @@
-import type { ColorType } from '../../types/estrategia'
+import type { ColorType } from '../../schemas/estrategia'
 import { ApuestasEstados } from '../../schemas/enums'
 
 interface ApuestaBadgeProps {

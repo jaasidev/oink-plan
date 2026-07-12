@@ -1,7 +1,7 @@
 import { useTimeStore } from '../../context/useTimeStore'
 import { changeColor } from '../../utils/colors'
 import { ApuestasEstados } from '../../schemas/enums'
-import type { ColorType } from '../../types/estrategia'
+import type { ColorType } from '../../schemas/estrategia'
 
 interface ButtonTimeProps {
   readonly index: number

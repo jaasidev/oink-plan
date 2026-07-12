@@ -1,36 +1,22 @@
 import { formatDateString } from './helpers'
-import type { Tiempo } from '../types/estrategia'
-function isBloque(value: number, contador: number): boolean {
-  if (contador === 1) return value % 5 === 0
-  if (contador === 5) return value % 6 === 0
-  if (contador === 15) return value % 4 === 0
+import type { Bloque, Tiempo } from '../schemas/estrategia'
+import { ApuestasEstados } from '../schemas/enums'
+import { limiteVela } from './droptime'
 
-  return false
+function isBloque(value: number, contador: Bloque): boolean {
+  return value % limiteVela[contador] === 0
 }
 
 export const objetoBase = (
   hour: number,
   minutes: number,
   vela: number,
-  contador: number,
+  contador: Bloque,
 ): Tiempo => {
   return {
     hours: formatDateString(hour),
     minutes: formatDateString(minutes),
     bloque: isBloque(vela, contador),
-    color: 'none',
+    color: ApuestasEstados.NONE,
   }
-}
-
-export const objetoTime = (
-  horaBase: number,
-  nuevaHoraBase: number,
-  minutes: number,
-  vela: number,
-  contador: number,
-): Tiempo => {
-  /**validacion en caso de que tenga que empezar a contar de forma regresiva desde 24 */
-  if (horaBase >= 0) return objetoBase(horaBase, minutes, vela, contador)
-
-  return objetoBase(nuevaHoraBase, minutes, vela, contador)
 }
