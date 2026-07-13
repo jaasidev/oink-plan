@@ -3,6 +3,7 @@ import { PageContent } from './components/sections/PageContent'
 import { SideBar } from './components/sections/SideBar'
 import { useTimeStore } from './context/useTimeStore'
 import { useEffect } from 'react'
+import type { Bloque } from './schemas/estrategia'
 
 function App() {
   const setTime = useTimeStore((state) => state.setTime)
@@ -15,7 +16,7 @@ function App() {
     const previousContador = sessionStorage.getItem('contador')
     if (previousContador && previousTime) {
       setTime(JSON.parse(previousTime))
-      setContador(parseInt(previousContador))
+      setContador(Number.parseInt(previousContador) as Bloque)
       setEstrategias()
       updateVelas()
     }

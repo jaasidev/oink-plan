@@ -1,11 +1,10 @@
-
 import { FormSide } from '../FormSide/FormSIde'
 
 export function SideBar() {
   return (
     <ul className='menu bg-base-200 text-base-content min-h-full w-80 p-4'>
       <li className='menu-title border-b'>
-        <a className=' text-5xl text-pink-600 flex gap-1 items-center' href='#'>
+        <a className=' text-5xl text-pink-600 flex gap-1 items-center' href='/'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='40'
