@@ -1,77 +1,39 @@
 import { BrokerList } from '../BrokerList/BrokerList'
-import { useTimeStore } from '../../context/useTimeStore'
-import { useRef } from 'react'
-import type { Bloque } from '../../schemas/estrategia'
+import { Select } from '../select/Select'
+import { Button } from '../buttons/button'
+import { useSubmitForm } from '../../hooks/useSubmitForm'
 export function FormSide() {
-  const minRef = useRef<HTMLSelectElement>(null)
-  const monedaRef = useRef<HTMLSelectElement>(null)
-  const setInitTime = useTimeStore((state) => state.setInitTime)
-  const setContador = useTimeStore((state) => state.setContador)
-  const setEstrategias = useTimeStore((state) => state.setEstrategias)
-  const resetEstrategias = useTimeStore((state) => state.resetEstrategias)
-  const resetVelas = useTimeStore((state) => state.resetVelas)
-  const resetTime = useTimeStore((state) => state.resetTime)
-
-  const handlSubmit = (event: React.SubmitEvent) => {
-    event.preventDefault()
-    if (minRef.current) {
-      setContador(Number.parseInt(minRef.current.value) as Bloque)
-      setInitTime()
-      resetVelas()
-    }
-
-    setEstrategias()
-    sessionStorage.removeItem('prev')
-    if (minRef.current) sessionStorage.setItem('contador', minRef.current.value)
-  }
-
-  const handleDelete = () => {
-    resetTime()
-    setContador(1)
-    resetEstrategias()
-    resetVelas()
-    if (minRef.current) minRef.current.value = ''
-
-    if (monedaRef.current) monedaRef.current.value = ''
-  }
+  const { handleDelete, handleSubmit, minRef, monedaRef } = useSubmitForm()
   return (
     <>
       <li className='menu-title px-0 mt-7'>
-        <form className='flex flex-col gap-3' onSubmit={handlSubmit}>
-          <select
+        <form className='flex flex-col gap-3' onSubmit={handleSubmit}>
+          <Select
             id='time'
-            required
-            defaultValue=''
             ref={minRef}
-            title='Debe elegir una opción'
-            className='select select-secondary validator text-base-content'
+            require
+            variant='secundary'
+            defaultText='Selecciona un tiempo'
           >
-            <option disabled value=''>
-              --Elige el rango de tiempo--
-            </option>
             <option value='01'>1 Minuto</option>
             <option value='05'>5 Minutos</option>
             <option value='15'>15 Minutos</option>
-          </select>
-          <select
-            defaultValue=''
-            className='select select-secondary text-base-content validator'
-            required
-            title='Debe elegir una opción'
+          </Select>
+          <Select
             id='moneda'
             ref={monedaRef}
+            require
+            variant='secundary'
+            defaultText='Selecciona una moneda'
           >
-            <option value='' disabled>
-              --Elige tu cambio de moneda--
-            </option>
             <option>USD/EURO</option>
             <option>EURO/USD</option>
             <option>USD/GBP</option>
             <option>EURO/GBP</option>
             <option>GBP/USD</option>
-            <option value=''>GBP/EURO</option>
-          </select>
-          <button className='btn btn-secondary' type='submit'>
+            <option>GBP/EURO</option>
+          </Select>
+          <Button type='submit' variant='secondary'>
             <svg
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
@@ -88,12 +50,9 @@ export function FormSide() {
               <path d='M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4' />
             </svg>
             Generar
-          </button>
+          </Button>
         </form>
-        <button
-          className='btn btn-error text-white mt-3'
-          onClick={handleDelete}
-        >
+        <Button action={handleDelete} variant='error'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='19'
@@ -112,7 +71,7 @@ export function FormSide() {
             <path d='M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3' />
           </svg>
           Limpiar
-        </button>
+        </Button>
       </li>
       <BrokerList />
     </>
