@@ -11,11 +11,12 @@ const IMPULSO_GALE_2 = 3
 const IMPULSO_GALE_3 = 1
 const SALIDA_ACTIVA = 100
 
-function obtenerColor(
+export function obtenerColor(
   time: readonly Tiempo[],
   index: number,
 ): ColorType | undefined {
-  return time[index]?.color
+  if (time[index].color === undefined) return undefined
+  return time[index].color
 }
 
 export function obtenerContrario(color?: ColorType): ColorType {
@@ -76,7 +77,7 @@ export function procesarGales(
   time: readonly Tiempo[],
   condicionAdicional: boolean,
   index: number,
-  prediccion: ColorType,
+  prediccion: ColorType | undefined,
   confiabilidadBase: number,
   modifyUno = 0,
   modifyDos = 0,
@@ -85,6 +86,8 @@ export function procesarGales(
   let dos = 0
   let tres = 0
   let confiabilidad = confiabilidadBase
+  if (prediccion === undefined)
+    return { uno: 0, dos: 0, tres: 0, confiabilidad }
   const colorActual = obtenerColor(time, index)
 
   if (!condicionAdicional || prediccion === ApuestasEstados.NONE) {
@@ -152,11 +155,12 @@ export function procesarGales(
 export function procesarGalesAnt(
   time: readonly Tiempo[],
   index: number,
-  prediccion: ColorType,
+  prediccion: ColorType | undefined,
   confiabilidadBase: number,
   modifyUno = 0,
   modifyDos = 0,
 ): number {
+  if (prediccion === undefined) return confiabilidadBase
   if (prediccion === ApuestasEstados.NONE) {
     return confiabilidadBase
   }
@@ -195,4 +199,10 @@ export function findLastBloque(lista: readonly Tiempo[]): null | number {
   const lastBloque = lista.findLastIndex((value: Tiempo) => value.bloque)
   if (lastBloque === -1) return null
   return lastBloque
+}
+
+export function findFirstBloque(lista: readonly Tiempo[]): null | number {
+  const firstBloque = lista.findIndex((value: Tiempo) => value.bloque)
+  if (firstBloque === -1) return null
+  return firstBloque
 }

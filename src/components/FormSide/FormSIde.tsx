@@ -12,7 +12,7 @@ export function FormSide() {
             id='time'
             ref={minRef}
             require
-            variant='secundary'
+            variant='secondary'
             defaultText='Selecciona un tiempo'
           >
             <option value='01'>1 Minuto</option>
@@ -33,7 +33,7 @@ export function FormSide() {
             <option>GBP/USD</option>
             <option>GBP/EURO</option>
           </Select>
-          <Button type='submit' variant='secondary'>
+          <Button variant='secondary' className='' type='submit'>
             <svg
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'

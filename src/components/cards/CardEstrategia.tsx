@@ -6,14 +6,14 @@ interface CardEstrategiaProps {
 }
 
 export function CardEstrategia({ id }: CardEstrategiaProps) {
-  const time = useTimeStore((state) => state.time)
   const estrategia = useTimeStore((state) =>
     state.estrategias.find((el) => el.id === id),
   )
 
   if (!estrategia) return null
 
-  const resultados = estrategia.estrategia(time)
+  const resultados = estrategia.estrategia()
+  if (resultados.prediccion === undefined) return null
   return (
     <div className='card w-full bg-base-100 card-lg border-secondary border'>
       <div className='card-body'>

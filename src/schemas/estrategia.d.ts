@@ -13,7 +13,7 @@ export abstract class EstrategiaBasica {
   description: string
   minutos: number[]
 
-  abstract estrategia: () => void
+  abstract estrategia: () => EstrategiaResultadoInfo
 }
 
 export interface EstrategiaResultado {
@@ -24,7 +24,7 @@ export interface EstrategiaResultado {
 }
 
 export interface EstrategiaResultadoInfo extends EstrategiaResultado {
-  prediccion: ColorType
+  prediccion: ColorType | undefined
 }
 
 export type Bloque = 1 | 5 | 15
