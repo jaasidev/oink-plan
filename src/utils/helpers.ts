@@ -18,6 +18,12 @@ function obtenerColor(
   return time[index]?.color
 }
 
+export function obtenerContrario(color?: ColorType): ColorType {
+  if (color === ApuestasEstados.HIGH) return ApuestasEstados.LOW
+  if (color === ApuestasEstados.LOW) return ApuestasEstados.HIGH
+  return ApuestasEstados.NONE
+}
+
 function incrementarConfiabilidad(
   confiabilidad: number,
   incremento: number,
@@ -56,9 +62,7 @@ export function calcularBalance(
     valores.alto > valores.bajo ? ApuestasEstados.HIGH : ApuestasEstados.LOW
 
   if (invertirRespuesta) {
-    return resultado === ApuestasEstados.HIGH
-      ? ApuestasEstados.LOW
-      : ApuestasEstados.HIGH
+    return obtenerContrario(resultado)
   }
 
   return resultado

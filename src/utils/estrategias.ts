@@ -1,14 +1,16 @@
-import { calcularBalance, procesarGales, procesarGalesAnt } from './helpers'
+import {
+  calcularBalance,
+  procesarGales,
+  procesarGalesAnt,
+  obtenerContrario,
+} from './helpers'
 import { ApuestasEstados } from '../schemas/enums'
-import type { ColorType, Tiempo } from '../schemas/estrategia'
+import type { EstrategiaBasica, Tiempo, Bloque } from '../schemas/estrategia'
 
-function obtenerContrario(color?: ColorType): ColorType {
-  if (color === ApuestasEstados.HIGH) return ApuestasEstados.LOW
-  if (color === ApuestasEstados.LOW) return ApuestasEstados.HIGH
-  return ApuestasEstados.NONE
-}
-
-export function estrategia(time: Tiempo[], contador: number) {
+export function estrategia(
+  time: Tiempo[],
+  contador: Bloque,
+): EstrategiaBasica[] {
   const instancia = time.findIndex((value) => value.bloque)
   const ultimo = time.findLastIndex((value) => value.bloque)
   const { length } = time
