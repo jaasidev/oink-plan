@@ -28,7 +28,6 @@ export function Header() {
       <div className='flex items-center'>
         <Button
           className='me-3 cursor-pointer p-0.5 border-0 outline-0'
-          variant=''
           action={() => {
             const modal = document.getElementById('my_modal_1')
             if (modal && modal instanceof HTMLDialogElement) modal.showModal()

@@ -2,18 +2,17 @@ import type { ReactNode } from 'react'
 
 interface Button {
   readonly children: ReactNode
-  readonly variant: string
   readonly className?: string
   readonly action?: (evento?: any) => void
   readonly type?: 'button' | 'submit' | 'reset'
 }
 
-export function Button({ children, variant, className, action, type }: Button) {
+export function Button({ children, className, action, type }: Button) {
   return (
     <button
       type={type}
       onClick={action}
-      className={`btn btn-${variant} text-white mt-3 ${className ?? ''}`}
+      className={`btn text-white ${className ?? ''} `}
     >
       {children}
     </button>

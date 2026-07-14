@@ -3,7 +3,7 @@ import { Select } from '../select/Select'
 import { Button } from '../buttons/button'
 import { useSubmitForm } from '../../hooks/useSubmitForm'
 export function FormSide() {
-  const { handleDelete, handleSubmit, minRef, monedaRef } = useSubmitForm()
+  const { handleSubmit, minRef, monedaRef } = useSubmitForm()
   return (
     <>
       <li className='menu-title px-0 mt-7'>
@@ -33,7 +33,7 @@ export function FormSide() {
             <option>GBP/USD</option>
             <option>GBP/EURO</option>
           </Select>
-          <Button variant='secondary' className='' type='submit'>
+          <Button className='btn-secondary mt-3' type='submit'>
             <svg
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
@@ -52,7 +52,13 @@ export function FormSide() {
             Generar
           </Button>
         </form>
-        <Button action={handleDelete} variant='error'>
+        <Button
+          action={() => {
+            const modal = document.getElementById('my_modal_2')
+            if (modal && modal instanceof HTMLDialogElement) modal.showModal()
+          }}
+          className='btn-error mt-3'
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='19'

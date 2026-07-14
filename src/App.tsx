@@ -4,6 +4,7 @@ import { SideBar } from './components/sections/SideBar'
 import { useTimeStore } from './context/useTimeStore'
 import { useEffect } from 'react'
 import type { Bloque } from './schemas/estrategia'
+import { ModalAcciones } from './components/modal/ModalAcciones'
 
 function App() {
   const setTime = useTimeStore((state) => state.setTime)
@@ -38,6 +39,7 @@ function App() {
         </div>
       </div>
       <ModalHelp />
+      <ModalAcciones />
     </>
   )
 }
