@@ -10,7 +10,6 @@ function App() {
   const setTime = useTimeStore((state) => state.setTime)
   const setContador = useTimeStore((state) => state.setContador)
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
-  const updateVelas = useTimeStore((state) => state.updateVelas)
 
   useEffect(() => {
     const previousTime = sessionStorage.getItem('prev')
@@ -19,7 +18,6 @@ function App() {
       setTime(JSON.parse(previousTime))
       setContador(Number.parseInt(previousContador) as Bloque)
       setEstrategias()
-      updateVelas()
     }
   }, [])
   return (

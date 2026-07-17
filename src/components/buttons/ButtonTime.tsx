@@ -20,13 +20,11 @@ export function ButtonTime({
   const time = useTimeStore((state) => state.time)
   const setTime = useTimeStore((state) => state.setTime)
   const setEstrategias = useTimeStore((state) => state.setEstrategias)
-  const updateVelas = useTimeStore((state) => state.updateVelas)
 
   const handleClick = () => {
     setTime(changeColor(time, index))
     sessionStorage.setItem('prev', JSON.stringify(time))
     setEstrategias()
-    updateVelas()
   }
   const borde = bloque ? 'border border-pink-500' : ''
   let bg = ''
