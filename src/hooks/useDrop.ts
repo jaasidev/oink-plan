@@ -13,7 +13,6 @@ export function useDrop() {
   })
 
   useEffect(() => {
-    if (contador === 0) return
     let resta =
       new Date().getSeconds() === 0 ? 0 : new Date().getSeconds() * 1000
 
