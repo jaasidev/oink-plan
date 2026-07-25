@@ -15,7 +15,7 @@ export function obtenerColor(
   time: readonly Tiempo[],
   index: number,
 ): ColorType | undefined {
-  if (time[index].color === undefined) return undefined
+  if (time.length - 1 < index) return undefined
   return time[index].color
 }
 

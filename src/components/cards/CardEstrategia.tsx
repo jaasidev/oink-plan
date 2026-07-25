@@ -11,8 +11,8 @@ export function CardEstrategia({ id }: CardEstrategiaProps) {
   )
 
   if (!estrategia) return null
+  const resultados = estrategia?.estrategia()
 
-  const resultados = estrategia.estrategia()
   if (resultados.prediccion === undefined) return null
   return (
     <div className='card w-full bg-base-100 card-lg border-secondary border'>

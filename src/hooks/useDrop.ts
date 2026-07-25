@@ -9,7 +9,6 @@ export function useDrop() {
   const onUpdate = useEffectEvent(() => {
     updateTime()
     setEstrategias()
-    sessionStorage.setItem('prev', JSON.stringify(time))
   })
 
   useEffect(() => {

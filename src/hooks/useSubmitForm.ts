@@ -19,8 +19,6 @@ export function useSubmitForm() {
     }
 
     setEstrategias()
-    sessionStorage.removeItem('prev')
-    if (minRef.current) sessionStorage.setItem('contador', minRef.current.value)
   }
 
   const handleDelete = () => {

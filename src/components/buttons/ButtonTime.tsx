@@ -23,7 +23,6 @@ export function ButtonTime({
 
   const handleClick = () => {
     setTime(changeColor(time, index))
-    sessionStorage.setItem('prev', JSON.stringify(time))
     setEstrategias()
   }
   const borde = bloque ? 'border border-pink-500' : ''
