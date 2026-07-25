@@ -51,7 +51,7 @@ export const useTimeStore = create<StoreProps>()(
       name: 'previous-time',
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({ time: state.time, contador: state.contador }),
-      onRehydrateStorage: (state) => {
+      onRehydrateStorage: () => {
         console.log('hydration starts')
 
         return (state, error) => {
