@@ -14,9 +14,13 @@ const SALIDA_ACTIVA = 100
 export function obtenerColor(
   time: readonly Tiempo[],
   index: number,
-): ColorType | undefined {
-  if (time.length - 1 < index) return undefined
-  return time[index].color
+): ColorType {
+  if (time.length - 1 < index) {
+    console.error('index menor que numero')
+    return 'none'
+  } else {
+    return time[index].color
+  }
 }
 
 export function obtenerContrario(color?: ColorType): ColorType {
@@ -86,8 +90,8 @@ export function procesarGales(
   let dos = 0
   let tres = 0
   let confiabilidad = confiabilidadBase
-  if (prediccion === undefined)
-    return { uno: 0, dos: 0, tres: 0, confiabilidad }
+  if (time.length < index) return { uno: 0, dos: 0, tres: 0, confiabilidad }
+
   const colorActual = obtenerColor(time, index)
 
   if (!condicionAdicional || prediccion === ApuestasEstados.NONE) {
@@ -116,6 +120,9 @@ export function procesarGales(
   uno = 0
   dos = SALIDA_ACTIVA
 
+  if (time.length < index + 1 + modifyUno)
+    return { uno: 0, dos: SALIDA_ACTIVA, tres: 0, confiabilidad }
+
   const colorDos = obtenerColor(time, index + 1 + modifyUno)
 
   if (colorDos === prediccion) {
@@ -133,6 +140,9 @@ export function procesarGales(
 
   dos = 0
   tres = SALIDA_ACTIVA
+
+  if (time.length < index + 2 + modifyDos)
+    return { uno: 0, dos: 0, tres: SALIDA_ACTIVA, confiabilidad }
 
   const colorTres = obtenerColor(time, index + 2 + modifyDos)
 

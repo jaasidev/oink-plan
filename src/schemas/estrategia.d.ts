@@ -24,7 +24,7 @@ export interface EstrategiaResultado {
 }
 
 export interface EstrategiaResultadoInfo extends EstrategiaResultado {
-  prediccion: ColorType | undefined
+  prediccion: ColorType
 }
 
 export type Bloque = 1 | 5 | 15
